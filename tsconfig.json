@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "declaration": true,
+    "outDir": "dist/dts",
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react"
+  },
+  "include": ["src"]
+}

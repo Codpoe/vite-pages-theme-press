@@ -1,0 +1,33 @@
+# API
+
+## createTheme
+
+```ts
+function createTheme(options?: CreateThemeOptions): React.FunctionComponent;
+```
+
+## CreateThemeOptions
+
+```ts
+interface CreateThemeOptions {
+  [key: string]: any;
+  logo?: string;
+  title?: string;
+  nav?: NavItem[];
+  sidebar?: SidebarItem[];
+}
+
+interface NavItem {
+  [key: string]: any;
+  text: React.ReactNode;
+  link?: string;
+  items?: NavItem[];
+}
+
+interface SidebarItem {
+  [key: string]: any;
+  text: React.ReactNode;
+  link?: string;
+  items?: SidebarItem[];
+}
+```

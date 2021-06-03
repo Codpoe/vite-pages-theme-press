@@ -1,0 +1,33 @@
+# Getting Started
+
+> WIP
+
+## Qucikly
+
+```shell
+npx degit xxx
+```
+
+## Create Theme
+
+```ts title="<root>/pages/_theme.ts"
+import { createTheme } from 'vite-pages-theme-press';
+
+export default createTheme({
+  title: 'Vite Pages',
+  nav: [
+    {
+      text: 'Docs',
+      link: '/getting-started',
+    },
+    // ...
+  ],
+  sidebar: [
+    {
+      text: 'Getting Started',
+      link: '/getting-started',
+    },
+    // ...
+  ],
+});
+```
