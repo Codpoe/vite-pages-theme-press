@@ -8,7 +8,6 @@ import windicss from 'vite-plugin-windicss';
 export default defineConfig(() => {
   return {
     root: '.',
-    base: '/vite-pages-theme-press/',
     build: {
       outDir: resolve(__dirname, 'dist'),
     },
