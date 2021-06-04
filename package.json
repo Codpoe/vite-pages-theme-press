@@ -16,7 +16,7 @@
     "dev": "vite --config docs/vite.config.ts",
     "build": "vite build & node scripts/add-css-import.js & yarn build:types",
     "build:types": "tsc & rollup -i dist/dts/index.d.ts -o dist/index.d.ts -f es -p rollup-plugin-dts & rimraf dist/dts",
-    "build:docs": "vite build --config docs/vite.config.ts",
+    "build:docs": "vite build --config docs/vite.config.ts & node scripts/add-nojekyll.js",
     "preview": "vite preview --config docs/vite.config.ts"
   },
   "dependencies": {
