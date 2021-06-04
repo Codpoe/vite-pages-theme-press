@@ -16,6 +16,8 @@ jobs:
         run: |
           yarn
           yarn build:docs
+          touch docs/dist/.nojekyll
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
         with:
