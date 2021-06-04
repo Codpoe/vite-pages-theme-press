@@ -7,7 +7,7 @@ import { Sidebar } from '../Sidebar';
 import { Toc } from '../Toc';
 
 export const DocLayout: React.FC = ({ children }) => {
-  const { loadedRoutePath } = useTheme();
+  const { useHashRouter, loadedRoutePath } = useTheme();
 
   return (
     <BaseLayout>
@@ -16,10 +16,13 @@ export const DocLayout: React.FC = ({ children }) => {
         <div className="col-start-2 w-full max-w-screen-md relative">
           <Mdx>{children}</Mdx>
           <PrevNext />
-          <div className="absolute top-0 bottom-0 left-full hidden 2xl:block">
-            {/* 加个 key，清理 Toc 的状态 */}
-            <Toc key={loadedRoutePath} />
-          </div>
+          {/* 使用 hash router 时禁用 Toc */}
+          {!useHashRouter && (
+            <div className="absolute top-0 bottom-0 left-full hidden 2xl:block">
+              {/* 加个 key，清理 Toc 的状态 */}
+              <Toc key={loadedRoutePath} />
+            </div>
+          )}
         </div>
       </main>
     </BaseLayout>

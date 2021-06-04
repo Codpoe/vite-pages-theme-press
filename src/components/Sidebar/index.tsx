@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Items } from './Items';
 import { SidebarItem } from './types';
@@ -11,17 +11,6 @@ export const Sidebar: React.FC = () => {
   const hitItems = useMemo(() => {
     const res: SidebarItem[] = [];
 
-    const isActive = (targetPath?: string) => {
-      if (!targetPath) {
-        return false;
-      }
-
-      let base = import.meta.env.BASE_URL;
-      base = base === '/' ? '' : base;
-
-      return base + targetPath === pathname;
-    };
-
     const find = (items?: SidebarItem[]) => {
       if (!items?.length) {
         return false;
@@ -30,7 +19,7 @@ export const Sidebar: React.FC = () => {
       for (let i = 0; i < items.length; i++) {
         res.push(items[i]);
 
-        if (isActive(items[i].link)) {
+        if (matchPath(pathname, items[i].link)) {
           return true;
         }
 

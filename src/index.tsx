@@ -117,6 +117,8 @@ export function createTheme(options: CreateThemeOptions = {}) {
       <ThemeProvider
         value={{
           ...options,
+          // @ts-ignore
+          useHashRouter: __HASH_ROUTER__,
           staticData,
           loadState,
           loadedData,

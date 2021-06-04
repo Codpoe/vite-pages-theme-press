@@ -3,6 +3,7 @@ import { LoadState, PagesLoaded } from 'vite-plugin-react-pages';
 import { CreateThemeOptions } from './types';
 
 export interface ThemeContextValue extends CreateThemeOptions {
+  useHashRouter: boolean;
   loadState: LoadState;
   loadedData: PagesLoaded;
   loadedRoutePath: string;

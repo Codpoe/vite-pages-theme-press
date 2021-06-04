@@ -3,12 +3,20 @@ import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import prismTheme from 'prism-react-renderer/themes/palenight';
 import { Link } from '../Link';
 import { Link as IconLink } from '../Icons';
+import { useTheme } from '../../context';
 
 function resolveHeadingId(title: React.ReactNode) {
   return `${title}`.trim().replace(/\s+/g, '-');
 }
 
 export const HeadingAnchor: React.FC<{ id: string }> = ({ id }) => {
+  const { useHashRouter } = useTheme();
+
+  // 使用 hash router 时禁用 heading anchor
+  if (useHashRouter) {
+    return null;
+  }
+
   return (
     <Link
       to={`#${id}`}

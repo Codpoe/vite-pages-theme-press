@@ -14,7 +14,7 @@ export default defineConfig(() => {
     },
     plugins: [
       reactRefresh(),
-      pages({ pagesDir: __dirname }),
+      pages({ pagesDir: __dirname, useHashRouter: true }),
       mdx(),
       windicss(),
     ],

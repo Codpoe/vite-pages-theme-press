@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Link } from '../Link';
 import { ChevronDown } from '../Icons';
@@ -7,17 +7,6 @@ import { ChevronDown } from '../Icons';
 export const Nav: React.FC = () => {
   const { pathname } = useLocation();
   const { nav } = useTheme();
-
-  const isActive = (targetPath?: string) => {
-    if (!targetPath) {
-      return false;
-    }
-
-    let base = import.meta.env.BASE_URL;
-    base = base === '/' ? '' : base;
-
-    return base + targetPath === pathname;
-  };
 
   if (!nav?.length) {
     return null;
@@ -60,7 +49,7 @@ export const Nav: React.FC = () => {
               to={item.link}
               color={false}
               className={`border-b-2 -mb-0.5 transition-colors hover:border-primary-500 ${
-                isActive(item.link)
+                matchPath(pathname, item.link)
                   ? 'border-primary-500'
                   : 'border-transparent'
               }`}
