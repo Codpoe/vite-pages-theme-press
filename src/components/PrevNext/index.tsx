@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from '../Link';
 import { ArrowLeft, ArrowRight } from '../Icons';
 import { useTheme } from '../../context';
+import { useSidebar } from '../../hooks/useSidebar';
 import { SidebarItem } from '../../types';
 
 const Item: React.FC<{ type: 'prev' | 'next'; item?: SidebarItem }> = ({
@@ -29,7 +30,8 @@ const Item: React.FC<{ type: 'prev' | 'next'; item?: SidebarItem }> = ({
 };
 
 export const PrevNext: React.FC = () => {
-  const { sidebar, loadedRoutePath } = useTheme();
+  const { loadedRoutePath } = useTheme();
+  const sidebar = useSidebar();
 
   const { prev, next } = useMemo<{
     prev?: SidebarItem;

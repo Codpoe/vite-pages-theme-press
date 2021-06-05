@@ -19,5 +19,5 @@ export interface CreateThemeOptions {
   logo?: string;
   title?: string;
   nav?: NavItem[];
-  sidebar?: SidebarItem[];
+  sidebar?: SidebarItem[] | Record<string, SidebarItem[]>;
 }

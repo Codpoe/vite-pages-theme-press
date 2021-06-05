@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
+import { useSidebar } from '../../hooks/useSidebar';
 import { Items } from './Items';
 import { SidebarItem } from './types';
 
 export const Sidebar: React.FC = () => {
-  const { sidebar, loadedRoutePath } = useTheme();
+  const { loadedRoutePath } = useTheme();
+  const sidebar = useSidebar();
 
   const hitItems = useMemo(() => {
     const res: SidebarItem[] = [];
@@ -46,7 +48,7 @@ export const Sidebar: React.FC = () => {
   }, []);
 
   // no hit, indicating that the current path does not have a sidebar
-  if (!hitItems.length) {
+  if (!sidebar?.length || !hitItems.length) {
     return null;
   }
 
