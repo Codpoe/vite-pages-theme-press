@@ -22,7 +22,7 @@ export const HeadingAnchor: React.FC<{ id: string }> = ({ id }) => {
       to={`#${id}`}
       icon={false}
       color={false}
-      className="absolute top-[52%] right-full transform -translate-y-1/2 p-3 text-base text-primary-500 hover:text-primary-600 transition-colors opacity-0 group-hover:opacity-100"
+      className="<md:hidden absolute top-[52%] right-full transform -translate-y-1/2 p-3 text-base text-primary-500 hover:text-primary-600 transition-colors opacity-0 group-hover:opacity-100"
     >
       <IconLink />
     </Link>

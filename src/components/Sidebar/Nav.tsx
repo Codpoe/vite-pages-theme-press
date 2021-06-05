@@ -76,9 +76,7 @@ export const Nav: React.FC = () => {
               to={item.link}
               color={false}
               className={`w-full font-semibold ${
-                matchPath(pathname, item.link)
-                  ? 'border-primary-500'
-                  : 'border-transparent'
+                matchPath(pathname, item.link) ? 'text-primary-500' : ''
               }`}
             >
               {item.text}
