@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import 'virtual:windi.css';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
@@ -34,6 +34,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
     const { loadState, loadedData } = props;
     const staticData = useStaticData();
     const loadedRoutePath = useRef<string | undefined>();
+    const [sidebarOpen, setSidebarOpen] = useState(false);
 
     useLoadProgress(loadState);
 
@@ -123,6 +124,8 @@ export function createTheme(options: CreateThemeOptions = {}) {
           loadState,
           loadedData,
           loadedRoutePath: loadedRoutePath.current,
+          sidebarOpen,
+          setSidebarOpen,
         }}
       >
         {content}

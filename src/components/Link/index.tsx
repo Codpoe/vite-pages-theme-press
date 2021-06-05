@@ -45,7 +45,7 @@ export const Link: React.FC<LinkProps> = props => {
       href={to}
       {...(!isHash && {
         target: '_blank',
-        rel: 'noopener noreferrer nofollow',
+        rel: 'noopener noreferrer',
       })}
     >
       {finalChildren}

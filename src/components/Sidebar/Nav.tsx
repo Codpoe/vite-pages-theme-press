@@ -1,43 +1,70 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Link } from '../Link';
-import { ChevronDown } from '../Icons';
+import { ChevronRight } from '../Icons';
+import { NavItem } from '../../types';
 
 export const Nav: React.FC = () => {
   const { pathname } = useLocation();
   const { nav } = useTheme();
+
+  const [open, setOpen] = useState<NavItem[]>([]);
+
+  const toggleOpen = useCallback((item: NavItem) => {
+    setOpen(prev => {
+      const res = prev.slice();
+      const index = prev.indexOf(item);
+
+      if (index >= 0) {
+        res.splice(index, 1);
+      } else {
+        res.push(item);
+      }
+
+      return res;
+    });
+  }, []);
 
   if (!nav?.length) {
     return null;
   }
 
   return (
-    <ul className="items-center text-[0.9rem] text-gray-700 leading-normal space-x-6 hidden md:flex dark:text-gray-300">
+    <ul className="mb-4 pb-4 border-b text-base leading-9 text-gray-700 md:hidden dark:(border-dark-200 text-gray-300)">
       {nav.map((item, index) => {
         if (item.items) {
+          const isOpen = open.includes(item);
+
           return (
-            <li key={index} className="group relative">
-              <div className="flex items-center cursor-pointer group">
+            <li key={index}>
+              <div
+                className="flex items-center font-semibold"
+                onClick={() => toggleOpen(item)}
+              >
                 {item.text}
-                <ChevronDown className="ml-1 text-gray-400 group-hover:(transform rotate-180) transition-transform" />
+                <ChevronRight
+                  className={`ml-1 text-gray-400 transform transition-transform ${
+                    isOpen ? 'rotate-90' : ''
+                  }`}
+                />
               </div>
-              <div className="absolute top-full right-0 pt-2 hidden group-hover:block">
-                <ul className="py-[6px] bg-white overflow-y-auto rounded-md border shadow-sm text-sm dark:(bg-dark-700 border-dark-200)">
+              {isOpen && (
+                <ul className="text-[0.9rem] leading-8 dark:border-dark-200)">
                   {item.items.map((subItem, index) => (
                     <li key={index}>
                       <Link
                         {...subItem}
                         to={subItem.link}
                         color={false}
-                        className="w-full px-4 leading-9 whitespace-nowrap hover:(text-primary-500) transition-colors"
+                        className="w-full pl-4"
                       >
                         {subItem.text}
                       </Link>
                     </li>
                   ))}
                 </ul>
-              </div>
+              )}
             </li>
           );
         }
@@ -48,7 +75,7 @@ export const Nav: React.FC = () => {
               {...item}
               to={item.link}
               color={false}
-              className={`border-b-2 -mb-0.5 transition-colors hover:border-primary-500 ${
+              className={`w-full font-semibold ${
                 matchPath(pathname, item.link)
                   ? 'border-primary-500'
                   : 'border-transparent'

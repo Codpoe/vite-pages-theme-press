@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react';
+import { createContext, Dispatch, SetStateAction, useContext } from 'react';
 import { LoadState, PagesLoaded } from 'vite-plugin-react-pages';
 import { CreateThemeOptions } from './types';
 
@@ -8,6 +8,8 @@ export interface ThemeContextValue extends CreateThemeOptions {
   loadedData: PagesLoaded;
   loadedRoutePath: string;
   staticData: Record<string, any>;
+  sidebarOpen: boolean;
+  setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ThemeContext = createContext<ThemeContextValue>(null);
