@@ -66,6 +66,11 @@ export const PrevNext: React.FC = () => {
 
     find(sidebar);
 
+    // not found, indicating that the current path does not have a sidebar and prev/next
+    if (!found) {
+      return {};
+    }
+
     return { prev: _prev, next: _next };
   }, [sidebar, loadedRoutePath]);
 

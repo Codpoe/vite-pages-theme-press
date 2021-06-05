@@ -1,12 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation, matchPath } from 'react-router-dom';
+import { matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Items } from './Items';
 import { SidebarItem } from './types';
 
 export const Sidebar: React.FC = () => {
-  const { pathname } = useLocation();
-  const { sidebar } = useTheme();
+  const { sidebar, loadedRoutePath } = useTheme();
 
   const hitItems = useMemo(() => {
     const res: SidebarItem[] = [];
@@ -19,7 +18,7 @@ export const Sidebar: React.FC = () => {
       for (let i = 0; i < items.length; i++) {
         res.push(items[i]);
 
-        if (matchPath(pathname, items[i].link)) {
+        if (matchPath(loadedRoutePath, items[i].link)) {
           return true;
         }
 
@@ -34,7 +33,7 @@ export const Sidebar: React.FC = () => {
     find(sidebar);
 
     return res;
-  }, [pathname, sidebar]);
+  }, [loadedRoutePath, sidebar]);
 
   const [activeItems, setActiveItems] = useState<SidebarItem[]>(hitItems);
 
@@ -46,7 +45,8 @@ export const Sidebar: React.FC = () => {
     console.log('mounted');
   }, []);
 
-  if (!sidebar?.length) {
+  // no hit, indicating that the current path does not have a sidebar
+  if (!hitItems.length) {
     return null;
   }
 
