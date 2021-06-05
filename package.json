@@ -11,13 +11,23 @@
     "vite-plugin-react-pages",
     "theme"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Codpoe/vite-pages-theme-press.git"
+  },
+  "author": {
+    "name": "codpoe",
+    "email": "codpoe.me@gmail.com"
+  },
   "license": "MIT",
   "scripts": {
     "dev": "vite --config docs/vite.config.ts",
     "build": "vite build & node scripts/add-css-import.js & yarn build:types",
     "build:types": "tsc & rollup -i dist/dts/index.d.ts -o dist/index.d.ts -f es -p rollup-plugin-dts & rimraf dist/dts",
     "build:docs": "vite build --config docs/vite.config.ts",
-    "preview": "vite preview --config docs/vite.config.ts"
+    "preview": "vite preview --config docs/vite.config.ts",
+    "lint": "eslint --ext .ts,.tsx src",
+    "release": "release-it"
   },
   "dependencies": {
     "@mdx-js/react": "^1.6.22",
@@ -43,6 +53,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "release-it": "^14.7.0",
     "rimraf": "^3.0.2",
     "rollup-plugin-dts": "^3.0.2",
     "serve": "^11.3.2",
@@ -58,5 +69,13 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "vite": "^2.3.4"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release v${version}"
+    },
+    "hooks": {
+      "before:init": ["yarn lint", "yarn build"]
+    }
   }
 }
