@@ -14,8 +14,13 @@ import { useScrollToTop } from './hooks/useScrollToTop';
 
 export * from './types';
 
-function getLayout(routePath: string, sourceType: string, useLayout = true) {
-  if (!useLayout) {
+function getLayout(
+  routePath: string,
+  staticDataPart: Record<string, any> = {}
+) {
+  const { layout, sourceType } = staticDataPart;
+
+  if (layout === false) {
     return React.Fragment;
   }
 
@@ -37,6 +42,8 @@ export function createTheme(options: CreateThemeOptions = {}) {
     const loadedRoutePath = useRef<string | undefined>();
     const [sidebarOpen, setSidebarOpen] = useState(false);
     let content: any;
+
+    console.log(staticData);
 
     useLoadProgress(loadState);
 
@@ -73,7 +80,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
             const pageStaticDataPart = pageStaticData[key];
 
             if (pageStaticDataPart.sourceType === 'md') {
-              Layout = getLayout(loadedRoutePath.current, 'md');
+              Layout = getLayout(loadedRoutePath.current, pageStaticDataPart);
             }
 
             return (
@@ -94,10 +101,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
         content = Object.entries(pageData).map(([key, dataPart], index) => {
           const Component = dataPart.default;
           const pageStaticDataPart = pageStaticData[key];
-          const Layout = getLayout(
-            loadedRoutePath.current,
-            pageStaticDataPart.sourceType
-          );
+          const Layout = getLayout(loadedRoutePath.current, pageStaticDataPart);
 
           return (
             <Layout key={index}>
