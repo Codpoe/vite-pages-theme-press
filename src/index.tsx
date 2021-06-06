@@ -20,7 +20,7 @@ function getLayout(
 ) {
   const { layout, sourceType } = staticDataPart;
 
-  if (layout === false) {
+  if (layout === false || layout === 'false') {
     return React.Fragment;
   }
 
@@ -43,7 +43,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     let content: any;
 
-    console.log(staticData);
+    console.log({ staticData, loadedData });
 
     useLoadProgress(loadState);
 
