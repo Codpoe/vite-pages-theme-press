@@ -5,6 +5,7 @@ import { useStaticData } from 'vite-plugin-react-pages/client';
 import { BaseLayout } from './components/BaseLayout';
 import { HomeLayout } from './components/HomeLayout';
 import { DocLayout } from './components/DocLayout';
+import { ErrorLayout } from './components/ErrorLayout';
 import { H2, P } from './components/Mdx/mdxComponents';
 import { ThemeProvider } from './context';
 import { CreateThemeOptions } from './types';
@@ -35,83 +36,76 @@ export function createTheme(options: CreateThemeOptions = {}) {
     const staticData = useStaticData();
     const loadedRoutePath = useRef<string | undefined>();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    let content: any;
 
     useLoadProgress(loadState);
 
     useScrollToTop(loadState);
 
-    if (loadState.type === 'load-error') {
-      // TODO
-      return null;
-    }
+    if (loadState.type === '404' || loadState.type === 'load-error') {
+      content = <ErrorLayout />;
+    } else {
+      if (loadState.type === 'loaded') {
+        loadedRoutePath.current = loadState.routePath;
+      }
 
-    // TODO
-    if (loadState.type === '404') {
-      return null;
-    }
+      if (!loadedRoutePath.current) {
+        return null;
+      }
 
-    if (loadState.type === 'loaded') {
-      loadedRoutePath.current = loadState.routePath;
-    }
+      const pageData = loadedData[loadedRoutePath.current];
+      const pageStaticData = staticData[loadedRoutePath.current];
+      const isComposedPage = Object.keys(pageData).length > 1;
 
-    if (!loadedRoutePath.current) {
-      return null;
-    }
+      if (isComposedPage) {
+        let Layout: React.ComponentType<any> = React.Fragment;
 
-    const pageData = loadedData[loadedRoutePath.current];
-    const pageStaticData = staticData[loadedRoutePath.current];
-    const isComposedPage = Object.keys(pageData).length > 1;
+        content = Object.entries(pageData)
+          .sort(([key1], [key2]) => {
+            // README should be the first section
+            if (key1 === 'README') return -1;
+            if (key2 === 'README') return 1;
+            return key1.localeCompare(key2);
+          })
+          .map(([key, dataPart], index) => {
+            const isREADME = key === 'README';
+            const Component = dataPart.default;
+            const pageStaticDataPart = pageStaticData[key];
 
-    let content: any;
+            if (pageStaticDataPart.sourceType === 'md') {
+              Layout = getLayout(loadedRoutePath.current, 'md');
+            }
 
-    if (isComposedPage) {
-      let Layout: React.ComponentType<any> = React.Fragment;
+            return (
+              <React.Fragment key={index}>
+                {!isREADME && pageStaticDataPart.title && (
+                  <H2>{pageStaticDataPart.title}</H2>
+                )}
+                {pageStaticDataPart.description && (
+                  <P>{pageStaticDataPart.description}</P>
+                )}
+                <Component />
+              </React.Fragment>
+            );
+          });
 
-      content = Object.entries(pageData)
-        .sort(([key1], [key2]) => {
-          // README should be the first section
-          if (key1 === 'README') return -1;
-          if (key2 === 'README') return 1;
-          return key1.localeCompare(key2);
-        })
-        .map(([key, dataPart], index) => {
-          const isREADME = key === 'README';
+        content = <Layout>{content}</Layout>;
+      } else {
+        content = Object.entries(pageData).map(([key, dataPart], index) => {
           const Component = dataPart.default;
           const pageStaticDataPart = pageStaticData[key];
-
-          if (pageStaticDataPart.sourceType === 'md') {
-            Layout = getLayout(loadedRoutePath.current, 'md');
-          }
+          const Layout = getLayout(
+            loadedRoutePath.current,
+            pageStaticDataPart.sourceType
+          );
 
           return (
-            <React.Fragment key={index}>
-              {!isREADME && pageStaticDataPart.title && (
-                <H2>{pageStaticDataPart.title}</H2>
-              )}
-              {pageStaticDataPart.description && (
-                <P>{pageStaticDataPart.description}</P>
-              )}
+            <Layout key={index}>
               <Component />
-            </React.Fragment>
+            </Layout>
           );
         });
-
-      content = <Layout>{content}</Layout>;
-    } else {
-      content = Object.entries(pageData).map(([key, dataPart], index) => {
-        const Component = dataPart.default;
-        const pageStaticDataPart = pageStaticData[key];
-        const Layout = getLayout(
-          loadedRoutePath.current,
-          pageStaticDataPart.sourceType
-        );
-
-        return (
-          <Layout key={index}>
-            <Component />
-          </Layout>
-        );
-      });
+      }
     }
 
     return (
