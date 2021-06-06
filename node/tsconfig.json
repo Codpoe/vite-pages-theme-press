@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "downlevelIteration": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
-    "outDir": "dist/dts",
-    "lib": ["ESNext", "DOM"],
-    "jsx": "react"
+    "outDir": "../dist",
+    "lib": ["ESNext"],
   },
-  "include": ["src"]
+  "include": ["."]
 }
