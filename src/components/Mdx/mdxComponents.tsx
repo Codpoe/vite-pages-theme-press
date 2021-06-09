@@ -36,7 +36,7 @@ export const H1: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-24 mb-7 pb-4 border-b tracking-wide text-3xl text-gray-900 font-semibold dark:(border-dark-200 text-gray-200)"
+      className="pt-24 -mt-24 mb-7 pb-3 border-b tracking-wide text-3xl text-gray-900 font-semibold dark:(border-dark-200 text-gray-200)"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
