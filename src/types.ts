@@ -17,7 +17,7 @@ export interface SidebarItem {
 export interface CreateThemeOptions {
   [key: string]: any;
   logo?: string;
-  title?: string;
+  title?: React.ReactNode;
   nav?: NavItem[];
   sidebar?: SidebarItem[] | Record<string, SidebarItem[]>;
 }

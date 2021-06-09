@@ -5,6 +5,7 @@ import { useStaticData } from 'vite-plugin-react-pages/client';
 import { BaseLayout } from './components/BaseLayout';
 import { HomeLayout } from './components/HomeLayout';
 import { DocLayout } from './components/DocLayout';
+import { BlogLayout } from './components/BlogLayout';
 import { ErrorLayout } from './components/ErrorLayout';
 import { H2, P } from './components/Mdx/mdxComponents';
 import { ThemeProvider } from './context';
@@ -14,18 +15,19 @@ import { useScrollToTop } from './hooks/useScrollToTop';
 
 export * from './types';
 
-function getLayout(
-  routePath: string,
-  staticDataPart: Record<string, any> = {}
-) {
-  const { layout, sourceType } = staticDataPart;
+function getLayout(staticDataPart: Record<string, any> = {}) {
+  const { layout, home, blog, sourceType } = staticDataPart;
+
+  if (home) {
+    return HomeLayout;
+  }
+
+  if (blog) {
+    return BlogLayout;
+  }
 
   if (layout === false || layout === 'false') {
     return React.Fragment;
-  }
-
-  if (routePath === '/') {
-    return HomeLayout;
   }
 
   if (sourceType === 'md') {
@@ -80,7 +82,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
             const pageStaticDataPart = pageStaticData[key];
 
             if (pageStaticDataPart.sourceType === 'md') {
-              Layout = getLayout(loadedRoutePath.current, pageStaticDataPart);
+              Layout = getLayout(pageStaticDataPart);
             }
 
             return (
@@ -101,7 +103,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
         content = Object.entries(pageData).map(([key, dataPart], index) => {
           const Component = dataPart.default;
           const pageStaticDataPart = pageStaticData[key];
-          const Layout = getLayout(loadedRoutePath.current, pageStaticDataPart);
+          const Layout = getLayout(pageStaticDataPart);
 
           return (
             <Layout key={index}>

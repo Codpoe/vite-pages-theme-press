@@ -100,6 +100,44 @@ export const ChevronDown: React.FC<IconProps> = props => (
   </svg>
 );
 
+export const ChevronDoubleLeft: React.FC<IconProps> = props => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    width="1em"
+    height="1em"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M11 19l-7-7 7-7m8 14l-7-7 7-7"
+    />
+  </svg>
+);
+
+export const ChevronDoubleRight: React.FC<IconProps> = props => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    width="1em"
+    height="1em"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M13 5l7 7-7 7M5 5l7 7-7 7"
+    />
+  </svg>
+);
+
 export const Link: React.FC<IconProps> = props => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -191,6 +229,25 @@ export const Menu: React.FC<IconProps> = props => (
       strokeLinejoin="round"
       strokeWidth={2}
       d="M4 6h16M4 12h16M4 18h16"
+    />
+  </svg>
+);
+
+export const DotsHorizontal: React.FC<IconProps> = props => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    width="1em"
+    height="1em"
+    {...props}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
     />
   </svg>
 );

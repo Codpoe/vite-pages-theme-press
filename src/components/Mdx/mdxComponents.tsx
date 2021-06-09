@@ -29,13 +29,14 @@ export const HeadingAnchor: React.FC<{ id: string }> = ({ id }) => {
   );
 };
 
-export const H1: React.FC = ({ children }) => {
+export const H1: React.FC = ({ children, ...restProps }) => {
   const id = resolveHeadingId(children);
   return (
     <h1
+      {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-24 mb-5 text-3xl text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-24 mb-7 pb-4 border-b tracking-wide text-3xl text-gray-900 font-semibold dark:(border-dark-200 text-gray-200)"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -45,13 +46,14 @@ export const H1: React.FC = ({ children }) => {
   );
 };
 
-export const H2: React.FC = ({ children }) => {
+export const H2: React.FC = ({ children, ...restProps }) => {
   const id = resolveHeadingId(children);
   return (
     <h2
+      {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-4 text-2xl text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-16 mb-4 tracking-wide text-2xl text-gray-900 font-semibold dark:text-gray-200"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -61,10 +63,11 @@ export const H2: React.FC = ({ children }) => {
   );
 };
 
-export const H3: React.FC = ({ children }) => {
+export const H3: React.FC = ({ children, ...restProps }) => {
   const id = resolveHeadingId(children);
   return (
     <h3
+      {...restProps}
       id={id}
       data-title={children?.toString()}
       className="pt-24 -mt-16 mb-3 text-xl text-gray-900 font-semibold dark:text-gray-200"
@@ -77,10 +80,11 @@ export const H3: React.FC = ({ children }) => {
   );
 };
 
-export const H4: React.FC = ({ children }) => {
+export const H4: React.FC = ({ children, ...restProps }) => {
   const id = resolveHeadingId(children);
   return (
     <h4
+      {...restProps}
       id={id}
       data-title={children?.toString()}
       className="pt-24 -mt-16 mb-3 text-lg text-gray-900 font-semibold dark:text-gray-200"
@@ -93,10 +97,11 @@ export const H4: React.FC = ({ children }) => {
   );
 };
 
-export const H5: React.FC = ({ children }) => {
+export const H5: React.FC = ({ children, ...restProps }) => {
   const id = resolveHeadingId(children);
   return (
     <h5
+      {...restProps}
       id={id}
       data-title={children?.toString()}
       className="pt-24 -mt-16 mb-3 text-base text-gray-900 font-semibold dark:text-gray-200"
@@ -109,10 +114,11 @@ export const H5: React.FC = ({ children }) => {
   );
 };
 
-export const H6: React.FC = ({ children }) => {
+export const H6: React.FC = ({ children, ...restProps }) => {
   const id = resolveHeadingId(children);
   return (
     <h6
+      {...restProps}
       id={id}
       data-title={children?.toString()}
       className="pt-24 -mt-16 mb-3 text-sm text-gray-900 font-semibold dark:text-gray-200"
