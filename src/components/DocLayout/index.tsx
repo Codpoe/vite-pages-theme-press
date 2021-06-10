@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '../../context';
 import { BaseLayout } from '../BaseLayout';
 import { Mdx } from '../Mdx';
+import { UpdateInfo } from '../UpdateInfo';
 import { PrevNext } from '../PrevNext';
 import { Toc } from '../Toc';
 
@@ -11,7 +12,8 @@ export const DocLayout: React.FC = ({ children }) => {
   return (
     <BaseLayout>
       <div className="max-w-screen-md mx-auto relative">
-        <Mdx>{children}</Mdx>
+        <Mdx className="pb-8">{children}</Mdx>
+        <UpdateInfo />
         <PrevNext />
         {/* 使用 hash router 时禁用 Toc */}
         {!useHashRouter && (

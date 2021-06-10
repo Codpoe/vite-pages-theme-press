@@ -27,4 +27,8 @@ export default createTheme({
       link: '/todo',
     },
   ],
+  repo: 'codpoe/vite-pages-theme-press',
+  docsDir: 'docs',
+  editLink: true,
+  lastUpdated: true,
 });

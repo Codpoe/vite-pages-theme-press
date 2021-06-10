@@ -10,6 +10,7 @@ export interface ThemeContextValue extends CreateThemeOptions {
   staticData: Record<string, any>;
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
+  blogPaths: string[];
 }
 
 export const ThemeContext = createContext<ThemeContextValue>(null);

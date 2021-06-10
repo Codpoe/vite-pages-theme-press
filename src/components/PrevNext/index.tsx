@@ -81,7 +81,7 @@ export const PrevNext: React.FC = () => {
   }
 
   return (
-    <div className="flex justify-between items-center mt-16 py-4 border-t dark:border-dark-200">
+    <div className="flex justify-between items-center py-4 space-x-8 border-t dark:border-dark-200">
       <Item type="prev" item={prev} />
       <Item type="next" item={next} />
     </div>

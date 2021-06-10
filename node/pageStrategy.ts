@@ -34,6 +34,8 @@ export const defaultFileHandler: FileHandler = async (file, api) => {
   const pageId = getPagePublicPath(file.relative);
   const staticData = await extractStaticData(file);
 
+  staticData.filePath = staticData.filePath ?? file.relative;
+
   if (staticData.sourceType === 'md') {
     staticData.title = staticData.title ?? (await extractMdTitle(file));
     staticData.lastUpdated =

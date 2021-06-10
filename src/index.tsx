@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import 'virtual:windi.css';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
@@ -43,6 +43,13 @@ export function createTheme(options: CreateThemeOptions = {}) {
     const staticData = useStaticData();
     const loadedRoutePath = useRef<string | undefined>();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const blogPaths = useMemo(() => {
+      return Object.entries(staticData)
+        .filter(([, data]) => Boolean(data.main.blog))
+        .map(([pageId]) => pageId.replace(/\/:page$/, ''));
+    }, [staticData]);
+
     let content: any;
 
     console.log({ staticData, loadedData });
@@ -126,6 +133,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
           loadedRoutePath: loadedRoutePath.current,
           sidebarOpen,
           setSidebarOpen,
+          blogPaths,
         }}
       >
         {content}
