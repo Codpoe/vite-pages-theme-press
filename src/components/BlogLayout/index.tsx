@@ -4,7 +4,7 @@ import { useTheme } from '../../context';
 import { BaseLayout } from '../BaseLayout';
 import { Mdx } from '../Mdx';
 import { Item } from './Item';
-import { Pagination } from './Pagination';
+import { Pagination } from '../Pagination';
 
 const PAGE_SIZE = 10;
 
