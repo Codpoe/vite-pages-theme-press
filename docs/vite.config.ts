@@ -5,6 +5,7 @@ import pages from 'vite-plugin-react-pages';
 import mdx from 'vite-plugin-mdx';
 import windicss from 'vite-plugin-windicss';
 import { PressPageStrategy } from '../node/pageStrategy';
+import windiConfig from '../windi.config';
 
 export default defineConfig(() => {
   return {
@@ -19,7 +20,17 @@ export default defineConfig(() => {
         pageStrategy: new PressPageStrategy(),
       }),
       mdx(),
-      windicss(),
+      windicss({
+        config: {
+          ...windiConfig,
+          extract: {
+            ...windiConfig.extract,
+            include: (windiConfig.extract?.include || []).concat(
+              resolve(__dirname, './_theme.tsx')
+            ),
+          },
+        },
+      }),
     ],
   };
 });

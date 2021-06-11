@@ -20,6 +20,7 @@ export interface CreateThemeOptions {
   title?: React.ReactNode;
   nav?: NavItem[];
   sidebar?: SidebarItem[] | Record<string, SidebarItem[]>;
+  banner?: React.ReactNode;
   repo?: string;
   repoText?: React.ReactNode;
   docsRepo?: string;

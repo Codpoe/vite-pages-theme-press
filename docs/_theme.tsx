@@ -1,3 +1,4 @@
+import React from 'react';
 // import { createTheme } from '../dist/index.es';
 import { createTheme } from '../src';
 
@@ -27,6 +28,11 @@ export default createTheme({
       link: '/todo',
     },
   ],
+  banner: (
+    <div className="py-0.5 bg-gradient-to-r from-[#b92b27] to-[#1565C0] text-center text-gray-200 tracking-wide">
+      This is WIP!
+    </div>
+  ),
   repo: 'codpoe/vite-pages-theme-press',
   docsDir: 'docs',
   editLink: true,
