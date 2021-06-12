@@ -18,7 +18,6 @@ async function ensureDocSearchModal() {
 
   [{ DocSearchModal }] = await Promise.all([
     import('@docsearch/react/modal'),
-    import('@docsearch/css/dist/style.css'),
     import('./style.less'),
   ]);
 }
@@ -88,7 +87,7 @@ export const Search: React.FC = () => {
 
       <button
         ref={searchButtonRef}
-        className="btn !transition-none relative w-9 h-9 text-xl text-gray-700 dark:text-gray-200"
+        className="<md:btn-text md:btn transition-none w-9 h-9 text-xl text-gray-700 dark:text-gray-200"
         aria-label="Search"
         onMouseOver={ensureDocSearchModal}
         onTouchStart={ensureDocSearchModal}

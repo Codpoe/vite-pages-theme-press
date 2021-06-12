@@ -1,7 +1,9 @@
 import 'virtual:windi.css';
 import React, { useMemo, useRef, useState } from 'react';
+import { matchPath } from 'react-router-dom';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
+import { Helmet } from 'react-helmet';
 import { CSSPreflight } from './components/CSSPreflight';
 import { BaseLayout } from './components/BaseLayout';
 import { HomeLayout } from './components/HomeLayout';
@@ -39,7 +41,10 @@ function getLayout(staticDataPart: Record<string, any> = {}) {
 }
 
 function mergeThemeOptions(options: ThemeOptions, loadedRoutePath?: string) {
-  return { ...options, ...options[loadedRoutePath] };
+  const foundPath = Object.keys(options.themeOptionsByPaths || {})
+    .sort((a, b) => b.length - a.length)
+    .find(path => matchPath(loadedRoutePath, path));
+  return { ...options, ...options.themeOptionsByPaths?.[foundPath] };
 }
 
 export function createTheme(options: ThemeOptions = {}) {
@@ -127,10 +132,24 @@ export function createTheme(options: ThemeOptions = {}) {
       }
     }
 
-    const finalOptions = mergeThemeOptions(options, loadedRoutePath.current);
+    const finalOptions: ThemeOptions = mergeThemeOptions(
+      options,
+      loadedRoutePath.current
+    );
+
+    const pageTitle = staticData[loadedRoutePath.current]?.main?.title || '';
+
+    const finalTitle =
+      pageTitle && finalOptions.title
+        ? `${pageTitle} | ${finalOptions.title}`
+        : pageTitle || finalOptions.title;
 
     return (
       <>
+        <Helmet>
+          {finalTitle && <title>{finalTitle}</title>}
+          {finalOptions.head}
+        </Helmet>
         <CSSPreflight />
         <ThemeProvider
           value={{

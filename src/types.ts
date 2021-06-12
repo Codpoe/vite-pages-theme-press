@@ -18,6 +18,7 @@ export interface ThemeOptions {
   [key: string]: any;
   logo?: string;
   title?: React.ReactNode;
+  head?: React.ReactNode;
   nav?: NavItem[];
   sidebar?: SidebarItem[] | Record<string, SidebarItem[]>;
   banner?: React.ReactNode;

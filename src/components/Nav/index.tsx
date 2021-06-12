@@ -1,20 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Link } from '../Link';
 import { ChevronDown } from '../Icons';
 
-export const Nav: React.FC = () => {
-  const { pathname } = useLocation();
-  const { nav } = useTheme();
+export interface NavProps {
+  className?: string;
+}
 
-  if (!nav?.length) {
+export const Nav: React.FC<NavProps> = props => {
+  const { className } = props;
+  const { pathname } = useLocation();
+  const { nav, repo, repoText = 'GitHub' } = useTheme();
+
+  const finalNav = useMemo(() => {
+    if (repo) {
+      const _repo = /^[a-z]+:/i.test(repo)
+        ? repo
+        : `https://github.com/${repo}`;
+      return (nav || []).concat({ link: _repo, text: repoText });
+    }
+
+    return nav || [];
+  }, [nav, repo, repoText]);
+
+  if (!finalNav.length) {
     return null;
   }
 
   return (
-    <ul className="items-center text-[0.9rem] text-gray-700 leading-normal space-x-6 hidden md:flex dark:text-gray-300">
-      {nav.map((item, index) => {
+    <ul
+      className={`${className} items-center text-[0.9rem] text-gray-700 font-medium leading-normal space-x-6 hidden md:flex dark:text-gray-300`}
+    >
+      {finalNav.map((item, index) => {
         if (item.items) {
           return (
             <li key={index} className="group relative">
@@ -30,7 +48,7 @@ export const Nav: React.FC = () => {
                         {...subItem}
                         to={subItem.link}
                         color={false}
-                        className="w-full px-4 leading-9 whitespace-nowrap hover:(text-primary-500) transition-colors"
+                        className="w-full px-4 font-normal leading-9 whitespace-nowrap hover:(text-primary-500) transition-colors"
                       >
                         {subItem.text}
                       </Link>

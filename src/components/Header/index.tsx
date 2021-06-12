@@ -19,17 +19,20 @@ export const Header: React.FC = () => {
           <IconMenu />
         </div>
         <Link className="flex items-center space-x-2" to="/">
-          {logo && <img className="h-7 max-w-full" src={logo} alt="logo" />}
+          {logo && <img className="h-8 min-w-8" src={logo} alt="logo" />}
           {title && (
-            <h1 className="text-xl text-gray-900 font-medium dark:text-gray-200">
+            <h1 className="text-xl text-gray-900 font-semibold dark:text-gray-200">
               {title}
             </h1>
           )}
         </Link>
-        <div className="ml-auto flex items-center space-x-4">
+        <div className="ml-auto flex items-center">
           <Nav />
-          <ThemeModeSwitch />
-          <Search />
+          <div className="w-px h-6 mx-4 bg-gray-300 dark:bg-dark-50 <md:hidden"></div>
+          <div className="space-x-2 md:space-x-4">
+            <ThemeModeSwitch />
+            <Search />
+          </div>
         </div>
       </div>
     </header>
