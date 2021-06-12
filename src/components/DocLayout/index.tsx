@@ -17,7 +17,7 @@ export const DocLayout: React.FC = ({ children }) => {
         <PrevNext />
         {/* 使用 hash router 时禁用 Toc */}
         {!useHashRouter && (
-          <div className="absolute top-0 bottom-0 left-full hidden 2xl:block">
+          <div className="absolute top-24 bottom-0 left-full hidden 2xl:block">
             {/* 加个 key，清理 Toc 的状态 */}
             <Toc key={loadedRoutePath} />
           </div>

@@ -75,11 +75,12 @@ export const Toc: React.FC = () => {
 
         const hitHeading = headings.find((item, index) => {
           const nextItem = headings[index + 1];
+          const { top } = item.getBoundingClientRect();
+          const { top: nextTop } = nextItem?.getBoundingClientRect() || {};
 
           return (
             (index === 0 && scrollTop === 0) ||
-            (scrollTop >= item.offsetTop + 90 &&
-              (!nextItem || scrollTop < nextItem.offsetTop + 90))
+            (top <= 20 && (!nextItem || nextTop > 20))
           );
         });
 
