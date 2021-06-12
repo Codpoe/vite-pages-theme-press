@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import './style.less';
 
-export const CSSProperties: React.FC = () => {
+export const CSSPreflight: React.FC = () => {
   const elRef = useRef<HTMLDivElement>(null);
   const [properties, setProperties] = useState<Record<string, any>>({});
 

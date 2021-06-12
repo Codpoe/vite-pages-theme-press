@@ -1,10 +1,8 @@
 import 'virtual:windi.css';
-import './styles/base.less';
-
 import React, { useMemo, useRef, useState } from 'react';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
-import { CSSProperties } from './components/CSSProperties';
+import { CSSPreflight } from './components/CSSPreflight';
 import { BaseLayout } from './components/BaseLayout';
 import { HomeLayout } from './components/HomeLayout';
 import { DocLayout } from './components/DocLayout';
@@ -74,7 +72,7 @@ export function createTheme(options: ThemeOptions = {}) {
       }
 
       if (!loadedRoutePath.current) {
-        return <CSSProperties />;
+        return <CSSPreflight />;
       }
 
       const pageData = loadedData[loadedRoutePath.current];
@@ -133,7 +131,7 @@ export function createTheme(options: ThemeOptions = {}) {
 
     return (
       <>
-        <CSSProperties />
+        <CSSPreflight />
         <ThemeProvider
           value={{
             ...finalOptions,
