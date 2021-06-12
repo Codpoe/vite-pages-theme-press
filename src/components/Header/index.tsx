@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Nav } from '../Nav';
+import { Search } from '../Search';
 import { ThemeModeSwitch } from '../ThemeModeSwitch';
 import { Menu as IconMenu } from '../Icons';
 
@@ -25,9 +26,10 @@ export const Header: React.FC = () => {
             </h1>
           )}
         </Link>
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto flex items-center space-x-4">
           <Nav />
           <ThemeModeSwitch />
+          <Search />
         </div>
       </div>
     </header>

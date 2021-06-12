@@ -1,8 +1,9 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react';
 import { LoadState, PagesLoaded } from 'vite-plugin-react-pages';
-import { CreateThemeOptions } from './types';
+import { ThemeOptions } from './types';
 
-export interface ThemeContextValue extends CreateThemeOptions {
+export interface ThemeContextValue extends ThemeOptions {
+  base: string;
   useHashRouter: boolean;
   loadState: LoadState;
   loadedData: PagesLoaded;

@@ -14,7 +14,7 @@ export interface SidebarItem {
   items?: SidebarItem[];
 }
 
-export interface CreateThemeOptions {
+export interface ThemeOptions {
   [key: string]: any;
   logo?: string;
   title?: React.ReactNode;
@@ -28,4 +28,12 @@ export interface CreateThemeOptions {
   docsBranch?: string;
   editLink?: boolean | string;
   lastUpdated?: boolean | string;
+  algolia?: {
+    [key: string]: any;
+    apiKey: string;
+    indexName: string;
+    appId?: string;
+    algoliaOptions?: Record<string, any>;
+  };
+  themeOptionsByPaths?: Record<string, ThemeOptions>;
 }

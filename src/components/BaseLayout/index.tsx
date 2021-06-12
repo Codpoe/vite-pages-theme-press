@@ -2,7 +2,6 @@ import React from 'react';
 import { useTheme } from '../../context';
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
-import './style.less';
 
 export const BaseLayout: React.FC = ({ children }) => {
   const { banner } = useTheme();

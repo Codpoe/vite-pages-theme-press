@@ -1,7 +1,10 @@
-import React, { useMemo, useRef, useState } from 'react';
 import 'virtual:windi.css';
+import './styles/base.less';
+
+import React, { useMemo, useRef, useState } from 'react';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
+import { CSSProperties } from './components/CSSProperties';
 import { BaseLayout } from './components/BaseLayout';
 import { HomeLayout } from './components/HomeLayout';
 import { DocLayout } from './components/DocLayout';
@@ -9,7 +12,7 @@ import { BlogLayout } from './components/BlogLayout';
 import { ErrorLayout } from './components/ErrorLayout';
 import { H2, P } from './components/Mdx/mdxComponents';
 import { ThemeProvider } from './context';
-import { CreateThemeOptions } from './types';
+import { ThemeOptions } from './types';
 import { useLoadProgress } from './hooks/useLoadProgress';
 import { useScrollToTop } from './hooks/useScrollToTop';
 
@@ -37,7 +40,11 @@ function getLayout(staticDataPart: Record<string, any> = {}) {
   return BaseLayout;
 }
 
-export function createTheme(options: CreateThemeOptions = {}) {
+function mergeThemeOptions(options: ThemeOptions, loadedRoutePath?: string) {
+  return { ...options, ...options[loadedRoutePath] };
+}
+
+export function createTheme(options: ThemeOptions = {}) {
   const Theme: PagesTheme = props => {
     const { loadState, loadedData } = props;
     const staticData = useStaticData();
@@ -59,6 +66,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
     useScrollToTop(loadState);
 
     if (loadState.type === '404' || loadState.type === 'load-error') {
+      loadedRoutePath.current = undefined;
       content = <ErrorLayout />;
     } else {
       if (loadState.type === 'loaded') {
@@ -66,7 +74,7 @@ export function createTheme(options: CreateThemeOptions = {}) {
       }
 
       if (!loadedRoutePath.current) {
-        return null;
+        return <CSSProperties />;
       }
 
       const pageData = loadedData[loadedRoutePath.current];
@@ -121,23 +129,30 @@ export function createTheme(options: CreateThemeOptions = {}) {
       }
     }
 
+    const finalOptions = mergeThemeOptions(options, loadedRoutePath.current);
+
     return (
-      <ThemeProvider
-        value={{
-          ...options,
-          // @ts-ignore
-          useHashRouter: __HASH_ROUTER__,
-          staticData,
-          loadState,
-          loadedData,
-          loadedRoutePath: loadedRoutePath.current,
-          sidebarOpen,
-          setSidebarOpen,
-          blogPaths,
-        }}
-      >
-        {content}
-      </ThemeProvider>
+      <>
+        <CSSProperties />
+        <ThemeProvider
+          value={{
+            ...finalOptions,
+            base: import.meta.env.BASE_URL,
+            // vite-plugin-react-pages will inject `__HASH_ROUTER__: boolean`
+            // @ts-ignore
+            useHashRouter: __HASH_ROUTER__,
+            staticData,
+            loadState,
+            loadedData,
+            loadedRoutePath: loadedRoutePath.current,
+            sidebarOpen,
+            setSidebarOpen,
+            blogPaths,
+          }}
+        >
+          {content}
+        </ThemeProvider>
+      </>
     );
   };
 
