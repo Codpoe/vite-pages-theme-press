@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useLocation, matchPath } from 'react-router-dom';
+import { matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { useSidebar } from '../../hooks/useSidebar';
 import { Items } from './Items';
@@ -8,7 +8,6 @@ import { SidebarItem } from './types';
 import styles from './style.module.less';
 
 export const Sidebar: React.FC = () => {
-  const { pathname } = useLocation();
   const { loadedRoutePath, sidebarOpen, setSidebarOpen } = useTheme();
   const sidebar = useSidebar();
 
@@ -23,7 +22,9 @@ export const Sidebar: React.FC = () => {
       for (let i = 0; i < items.length; i++) {
         res.push(items[i]);
 
-        if (matchPath(pathname, items[i].link)) {
+        if (
+          matchPath(items[i].link || '', { path: loadedRoutePath, exact: true })
+        ) {
           return true;
         }
 
@@ -38,7 +39,7 @@ export const Sidebar: React.FC = () => {
     find(sidebar);
 
     return res;
-  }, [pathname, sidebar]);
+  }, [loadedRoutePath, sidebar]);
 
   const [activeItems, setActiveItems] = useState<SidebarItem[]>(hitItems);
 

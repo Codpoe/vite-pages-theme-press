@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { matchPath } from 'react-router-dom';
 import { Link } from '../Link';
 import { ChevronRight } from '../Icons';
 import { useTheme } from '../../context';
@@ -94,6 +95,12 @@ export const Items: React.FC<ItemsProps> = props => {
         {items.map((item, index) => {
           const hit = hitItems.includes(item);
           const active = activeItems.includes(item);
+          const loading =
+            loadState.type === 'loading' &&
+            matchPath(item.link || '', {
+              path: loadState.routePath,
+              exact: true,
+            });
 
           if (item.items) {
             return (
@@ -135,7 +142,7 @@ export const Items: React.FC<ItemsProps> = props => {
               >
                 <div
                   className={`w-1 h-1 ml-1 mr-[14px] rounded-full bg-gray-400 animate-delay-100 ${
-                    hit && loadState.type === 'loading' ? 'animate-ping' : ''
+                    loading ? 'animate-ping' : ''
                   }`}
                 ></div>
                 {item.text}

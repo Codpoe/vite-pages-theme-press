@@ -15,7 +15,7 @@ export function useSidebar(): SidebarItem[] | undefined {
     }
 
     const found = Object.keys(sidebar)
-      .sort((prePathA, prePathB) => prePathA.length - prePathB.length)
+      .sort((prePathA, prePathB) => prePathB.length - prePathA.length)
       .find(prePath => loadedRoutePath.startsWith(prePath));
 
     return sidebar[found];
