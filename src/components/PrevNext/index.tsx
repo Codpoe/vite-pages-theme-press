@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link } from '../Link';
 import { ArrowLeft, ArrowRight } from '../Icons';
-import { useTheme } from '../../context';
 import { useSidebar } from '../../hooks/useSidebar';
 import { SidebarItem } from '../../types';
 
@@ -29,8 +28,12 @@ const Item: React.FC<{ type: 'prev' | 'next'; item?: SidebarItem }> = ({
   );
 };
 
-export const PrevNext: React.FC = () => {
-  const { loadedRoutePath } = useTheme();
+export interface PrevNextProps {
+  loadedRoutePath: string;
+}
+
+export const PrevNext: React.FC<PrevNextProps> = props => {
+  const { loadedRoutePath } = props;
   const sidebar = useSidebar();
 
   const { prev, next } = useMemo<{

@@ -49,10 +49,14 @@ function createEditLink(
   );
 }
 
-export const UpdateInfo: React.FC = () => {
+export interface UpdateInfoProps {
+  loadedRoutePath: string;
+}
+
+export const UpdateInfo: React.FC<UpdateInfoProps> = props => {
+  const { loadedRoutePath } = props;
   const {
     staticData,
-    loadedRoutePath,
     blogPaths,
     repo,
     docsRepo = repo,
