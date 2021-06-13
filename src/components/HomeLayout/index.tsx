@@ -24,35 +24,35 @@ export const HomeLayout: React.FC = props => {
     <BaseLayout>
       <div className="h-full grid grid-rows-[minmax(0,1fr),auto] grid-cols-1">
         <div>
-          <header className="mt-8 mb-12 flex flex-col justify-center <md:mt-0">
+          <header className="mt-8 mb-12 text-center <sm:mt-0">
             {heroImage &&
               (heroImage.includes('/') ? (
                 <img
                   src={heroImage}
                   alt="hero"
-                  className="max-w-full max-h-60 mx-auto mb-6 <md:max-h-52"
+                  className="max-w-full max-h-64 mx-auto mb-6 <sm:(max-h-52 mb-5)"
                 />
               ) : (
-                <div className="mx-auto mb-6 text-[170px] leading-normal">
+                <div className="mx-auto mb-6 text-[170px] leading-normal <sm:mb-5">
                   {heroImage}
                 </div>
               ))}
             {heroText && (
-              <h1 className="mb-4 text-center text-5xl font-semibold text-gray-800 dark:text-gray-200">
+              <h1 className="my-7 text-center text-5xl font-semibold text-gray-800 <sm:(text-3xl my-5) dark:text-gray-200">
                 {heroText}
               </h1>
             )}
             {tagline && (
-              <p className="mb-6 text-center text-2xl text-gray-500 dark:text-gray-400">
+              <p className="my-7 text-center text-2xl text-gray-500 <sm:(text-xl my-5) dark:text-gray-400">
                 {tagline}
               </p>
             )}
             {actions && (
-              <div className="flex justify-center mt-4 space-x-6">
+              <div className="flex justify-center my-7 space-x-6 <sm:(my-5 space-x-4)">
                 {actions.map((action, index) => (
                   <Link key={index} to={action.link}>
                     <button
-                      className={`h-14 px-8 text-lg ${
+                      className={`h-14 px-8 text-lg <sm:(h-12 px-6 text-base) ${
                         index === 0 ? 'btn-primary' : 'btn-hollow'
                       }`}
                     >

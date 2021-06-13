@@ -63,7 +63,7 @@ export const Sidebar: React.FC = () => {
         <Nav />
         {/* no hit, indicating that the current path does not have a sidebar */}
         {hitItems.length > 0 && (
-          <div className="text-[0.9rem] leading-normal text-gray-500 dark:text-gray-400">
+          <div className="text-gray-700 dark:text-gray-300">
             <Items
               items={sidebar}
               hitItems={hitItems}

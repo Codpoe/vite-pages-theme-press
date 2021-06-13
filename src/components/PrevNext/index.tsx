@@ -14,7 +14,7 @@ const Item: React.FC<{ type: 'prev' | 'next'; item?: SidebarItem }> = ({
 
   return (
     <div
-      className={`w-1/2 flex items-center text-[0.9rem] leading-normal ${
+      className={`w-1/2 flex items-center ${
         type === 'prev' ? 'flex-row pr-4' : 'flex-row-reverse ml-auto pl-4'
       }`}
     >

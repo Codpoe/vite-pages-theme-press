@@ -106,7 +106,7 @@ export const Items: React.FC<ItemsProps> = props => {
             return (
               <li key={index} className={`${inside ? 'pl-3' : ''}`}>
                 <div
-                  className={`group flex items-center py-2 tracking-widest cursor-pointer transition-all ${
+                  className={`group flex items-center py-[7px] cursor-pointer transition-all ${
                     hit ? 'text-gray-900 font-semibold dark:text-gray-200' : ''
                   }`}
                   onClick={() => toggleExpand(item)}
@@ -136,7 +136,7 @@ export const Items: React.FC<ItemsProps> = props => {
                 {...item}
                 to={item.link}
                 color={false}
-                className={`w-full py-2 transition-all hover:text-primary-500 ${
+                className={`w-full py-[7px] transition-all hover:text-primary-500 ${
                   inside ? 'pl-3' : ''
                 } ${hit ? 'text-primary-500 font-semibold' : ''}`}
               >

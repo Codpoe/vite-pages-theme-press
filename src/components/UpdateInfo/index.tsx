@@ -87,7 +87,7 @@ export const UpdateInfo: React.FC<UpdateInfoProps> = props => {
   }
 
   return (
-    <div className="flex <sm:(flex-col space-y-2) sm:(justify-between items-center space-x-8) py-4 text-[0.9rem] leading-normal">
+    <div className="flex <sm:(flex-col space-y-2) sm:(justify-between items-center space-x-8) py-4">
       {/* if it is a blog, hide edit link */}
       {!isBlog && realEditLink && (
         <Link
