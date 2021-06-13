@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from '../Link';
 import { ChevronRight } from '../Icons';
+import { useTheme } from '../../context';
 import { SidebarItem } from './types';
 
 export interface ItemsProps {
@@ -15,6 +16,7 @@ export interface ItemsProps {
 export const Items: React.FC<ItemsProps> = props => {
   const { items, hitItems, activeItems, inside, expanded, setActiveItems } =
     props;
+  const { loadState } = useTheme();
   const elRef = useRef<HTMLUListElement>(null);
   const timerRef = useRef<any>(null);
   const [height, setHeight] = useState<number | undefined>();
@@ -131,7 +133,11 @@ export const Items: React.FC<ItemsProps> = props => {
                   inside ? 'pl-3' : ''
                 } ${hit ? 'text-primary-500 font-semibold' : ''}`}
               >
-                <div className="w-1 h-1 ml-1 mr-[14px] rounded-full bg-gray-400"></div>
+                <div
+                  className={`w-1 h-1 ml-1 mr-[14px] rounded-full bg-gray-400 animate-delay-100 ${
+                    hit && loadState.type === 'loading' ? 'animate-ping' : ''
+                  }`}
+                ></div>
                 {item.text}
               </Link>
             </li>
