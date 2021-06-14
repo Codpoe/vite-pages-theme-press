@@ -13,7 +13,7 @@ export const Header: React.FC = () => {
     <header className="sticky top-0 z-30 h-16 bg-white border-b dark:(bg-dark-700 border-dark-200)">
       <div className="w-full max-w-screen-lg h-full mx-auto px-4 flex items-center">
         <div
-          className="md:hidden text-2xl py-2 pr-4 text-gray-900 dark:text-gray-200"
+          className="hidden <md:block text-2xl py-2 pr-4 text-gray-900 dark:text-gray-200"
           onClick={() => setSidebarOpen(prev => !prev)}
         >
           <IconMenu />
@@ -29,7 +29,7 @@ export const Header: React.FC = () => {
         <div className="ml-auto flex items-center">
           <Nav />
           <div className="w-px h-6 mx-4 bg-gray-300 dark:bg-dark-50 <md:hidden"></div>
-          <div className="space-x-2 md:space-x-4">
+          <div className="space-x-4 <md:space-x-2">
             <ThemeModeSwitch />
             <Search />
           </div>

@@ -30,7 +30,7 @@ export const Nav: React.FC<NavProps> = props => {
 
   return (
     <ul
-      className={`${className} items-center text-[0.9rem] text-gray-700 font-medium leading-normal space-x-6 hidden md:flex dark:text-gray-300`}
+      className={`${className} items-center text-[0.9rem] text-gray-700 font-medium leading-normal space-x-6 flex <md:hidden dark:text-gray-300`}
     >
       {finalNav.map((item, index) => {
         if (item.items) {

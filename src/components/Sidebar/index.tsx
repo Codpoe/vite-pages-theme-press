@@ -77,7 +77,7 @@ export const Sidebar: React.FC = () => {
       </aside>
       {sidebarOpen && (
         <div
-          className="fixed top-0 bottom-0 left-0 right-0 z-10 md:hidden"
+          className="fixed top-0 bottom-0 left-0 right-0 z-10 hidden <md:block"
           onClick={() => setSidebarOpen(false)}
         />
       )}

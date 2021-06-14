@@ -52,7 +52,7 @@ export const HomeLayout: React.FC = props => {
                 {actions.map((action, index) => (
                   <Link key={index} to={action.link}>
                     <button
-                      className={`h-14 px-8 text-lg <sm:(h-12 px-6 text-base) ${
+                      className={`h-14 px-8 text-lg font-medium <sm:(h-12 px-6 text-base) ${
                         index === 0 ? 'btn-primary' : 'btn-hollow'
                       }`}
                     >
