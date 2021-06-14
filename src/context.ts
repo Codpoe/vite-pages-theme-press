@@ -1,6 +1,6 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react';
 import { LoadState, PagesLoaded } from 'vite-plugin-react-pages';
-import { ThemeOptions } from './types';
+import { LocaleOption, ThemeOptions } from './types';
 
 export interface ThemeContextValue extends ThemeOptions {
   base: string;
@@ -11,7 +11,10 @@ export interface ThemeContextValue extends ThemeOptions {
   staticData: Record<string, any>;
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
+  homePath?: string;
   blogPaths: string[];
+  locales: LocaleOption[];
+  currentLocale?: LocaleOption;
 }
 
 export const ThemeContext = createContext<ThemeContextValue>(null);

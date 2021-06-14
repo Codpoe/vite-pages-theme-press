@@ -14,8 +14,16 @@ export interface SidebarItem {
   items?: SidebarItem[];
 }
 
+export interface LocaleOption {
+  locale: string;
+  localeText: React.ReactNode;
+  localePath: string;
+}
+
 export interface ThemeOptions {
   [key: string]: any;
+  locale?: string;
+  localeText?: React.ReactNode;
   logo?: string;
   title?: React.ReactNode;
   head?: React.ReactNode;

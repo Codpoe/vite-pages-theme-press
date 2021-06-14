@@ -8,7 +8,8 @@ import { SidebarItem } from './types';
 import styles from './style.module.less';
 
 export const Sidebar: React.FC = () => {
-  const { loadedRoutePath, sidebarOpen, setSidebarOpen } = useTheme();
+  const { loadedRoutePath, loadState, sidebarOpen, setSidebarOpen } =
+    useTheme();
   const sidebar = useSidebar();
 
   const hitItems = useMemo(() => {
@@ -43,6 +44,12 @@ export const Sidebar: React.FC = () => {
 
   const [activeItems, setActiveItems] = useState<SidebarItem[]>(hitItems);
 
+  // no hit, indicating that the current path does not have a sidebar
+  const showSidebar =
+    loadState.type !== '404' &&
+    loadState.type !== 'load-error' &&
+    hitItems.length > 0;
+
   useEffect(() => {
     setActiveItems(prev => [...new Set([...prev, ...hitItems])]);
   }, [hitItems]);
@@ -54,14 +61,11 @@ export const Sidebar: React.FC = () => {
   return (
     <>
       <aside
-        className={`border-r overflow-y-auto <md:(w-64 px-4 py-3 fixed top-16 right-full bottom-0 z-20 bg-white border-r transform transition-transform dark:bg-dark-700) md:(w-56 mr-9 sticky top-24) dark:border-dark-200 ${
+        className={`border-r overflow-y-auto <md:(block w-64 px-4 py-3 fixed top-16 right-full bottom-0 z-20 bg-white border-r transform transition-transform dark:bg-dark-700) md:(w-56 mr-9 sticky top-24) dark:border-dark-200 ${
           sidebarOpen ? '<md:translate-x-full' : ''
-        } ${hitItems.length > 0 ? 'block' : 'hidden <md:block'} ${
-          styles.sidebar
-        }`}
+        } ${showSidebar ? 'block' : 'hidden'} ${styles.sidebar}`}
       >
         <Nav />
-        {/* no hit, indicating that the current path does not have a sidebar */}
         {hitItems.length > 0 && (
           <div className="text-gray-700 dark:text-gray-300">
             <Items

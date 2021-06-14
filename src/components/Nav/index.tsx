@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useLocation, matchPath } from 'react-router-dom';
 import { useTheme } from '../../context';
 import { Link } from '../Link';
@@ -11,20 +11,9 @@ export interface NavProps {
 export const Nav: React.FC<NavProps> = props => {
   const { className } = props;
   const { pathname } = useLocation();
-  const { nav, repo, repoText = 'GitHub' } = useTheme();
+  const { nav } = useTheme();
 
-  const finalNav = useMemo(() => {
-    if (repo) {
-      const _repo = /^[a-z]+:/i.test(repo)
-        ? repo
-        : `https://github.com/${repo}`;
-      return (nav || []).concat({ link: _repo, text: repoText });
-    }
-
-    return nav || [];
-  }, [nav, repo, repoText]);
-
-  if (!finalNav.length) {
+  if (!nav.length) {
     return null;
   }
 
@@ -32,7 +21,7 @@ export const Nav: React.FC<NavProps> = props => {
     <ul
       className={`${className} items-center text-[0.9rem] text-gray-700 font-medium leading-normal space-x-6 flex <md:hidden dark:text-gray-300`}
     >
-      {finalNav.map((item, index) => {
+      {nav.map((item, index) => {
         if (item.items) {
           return (
             <li key={index} className="group relative">

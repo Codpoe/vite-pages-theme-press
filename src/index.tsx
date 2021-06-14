@@ -1,64 +1,99 @@
 import 'virtual:windi.css';
 import React, { useMemo, useRef, useState } from 'react';
-import { matchPath } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
 import { Helmet } from 'react-helmet';
 import { CSSPreflight } from './components/CSSPreflight';
-import { BaseLayout } from './components/BaseLayout';
-import { HomeLayout } from './components/HomeLayout';
-import { DocLayout } from './components/DocLayout';
-import { BlogLayout } from './components/BlogLayout';
 import { ErrorLayout } from './components/ErrorLayout';
 import { H2, P } from './components/Mdx/mdxComponents';
 import { ThemeProvider } from './context';
 import { ThemeOptions } from './types';
 import { useLoadProgress } from './hooks/useLoadProgress';
 import { useScrollToTop } from './hooks/useScrollToTop';
+import {
+  mergeThemeOptions,
+  getLayout,
+  getLocales,
+  replaceLocaleInPath,
+} from './utils';
 
 export * from './types';
 
-function getLayout(staticDataPart: Record<string, any> = {}) {
-  const { layout, home, blog, sourceType } = staticDataPart;
-
-  if (home) {
-    return HomeLayout;
-  }
-
-  if (blog) {
-    return BlogLayout;
-  }
-
-  if (layout === false || layout === 'false') {
-    return React.Fragment;
-  }
-
-  if (sourceType === 'md') {
-    return DocLayout;
-  }
-
-  return BaseLayout;
-}
-
-function mergeThemeOptions(options: ThemeOptions, loadedRoutePath?: string) {
-  const foundPath = Object.keys(options.themeOptionsByPaths || {})
-    .sort((a, b) => b.length - a.length)
-    .find(path => matchPath(loadedRoutePath, path));
-  return { ...options, ...options.themeOptionsByPaths?.[foundPath] };
-}
-
 export function createTheme(options: ThemeOptions = {}) {
+  const locales = getLocales(options);
+
   const Theme: PagesTheme = props => {
     const { loadState, loadedData } = props;
     const staticData = useStaticData();
+    const { pathname } = useLocation();
     const loadedRoutePath = useRef<string | undefined>();
     const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    if (loadState.type === '404' || loadState.type === 'load-error') {
+      loadedRoutePath.current = undefined;
+    } else if (loadState.type === 'loaded') {
+      loadedRoutePath.current = loadState.routePath;
+    }
+
+    const finalOptions = mergeThemeOptions(options, pathname);
+
+    const currentLocale = locales.find(
+      item => item.locale === finalOptions.locale
+    );
+
+    const finalNav = useMemo(() => {
+      const { nav, repo, repoText = 'GitHub' } = finalOptions;
+      const res = (nav || []).slice();
+
+      if (locales.length && currentLocale) {
+        res.push({
+          text: currentLocale.localeText,
+          items: locales.map(item => ({
+            text: item.localeText,
+            link: replaceLocaleInPath(
+              pathname,
+              currentLocale.localePath,
+              item.localePath
+            ),
+          })),
+        });
+      }
+
+      if (repo) {
+        const _repo = /^[a-z]+:/i.test(repo)
+          ? repo
+          : `https://github.com/${repo}`;
+        res.push({ link: _repo, text: repoText });
+      }
+
+      return res;
+    }, [finalOptions, currentLocale, pathname]);
+
+    const homePaths = useMemo(() => {
+      return Object.keys(staticData)
+        .filter(path => Boolean(staticData[path].main?.home))
+        .sort((pathA, pathB) => pathA.length - pathB.length);
+    }, [staticData]);
+
+    const homePath = currentLocale
+      ? homePaths.find(item => item.startsWith(currentLocale.localePath))
+      : homePaths[0];
 
     const blogPaths = useMemo(() => {
       return Object.entries(staticData)
         .filter(([, data]) => Boolean(data.main.blog))
         .map(([pageId]) => pageId.replace(/\/:page$/, ''));
     }, [staticData]);
+
+    const siteTitle = useMemo(() => {
+      const pageTitle = staticData[loadedRoutePath.current]?.main?.title || '';
+
+      if (pageTitle && finalOptions.title) {
+        return `${pageTitle} | ${finalOptions.title}`;
+      }
+      return pageTitle || finalOptions.title;
+    }, [staticData, finalOptions.title]);
 
     let content: any;
 
@@ -69,13 +104,8 @@ export function createTheme(options: ThemeOptions = {}) {
     useScrollToTop(loadState);
 
     if (loadState.type === '404' || loadState.type === 'load-error') {
-      loadedRoutePath.current = undefined;
       content = <ErrorLayout />;
     } else {
-      if (loadState.type === 'loaded') {
-        loadedRoutePath.current = loadState.routePath;
-      }
-
       if (!loadedRoutePath.current) {
         return <CSSPreflight />;
       }
@@ -132,28 +162,17 @@ export function createTheme(options: ThemeOptions = {}) {
       }
     }
 
-    const finalOptions: ThemeOptions = mergeThemeOptions(
-      options,
-      loadedRoutePath.current
-    );
-
-    const pageTitle = staticData[loadedRoutePath.current]?.main?.title || '';
-
-    const finalTitle =
-      pageTitle && finalOptions.title
-        ? `${pageTitle} | ${finalOptions.title}`
-        : pageTitle || finalOptions.title;
-
     return (
       <>
-        <Helmet>
-          {finalTitle && <title>{finalTitle}</title>}
+        <Helmet htmlAttributes={{ lang: currentLocale?.locale }}>
+          {siteTitle && <title>{siteTitle}</title>}
           {finalOptions.head}
         </Helmet>
         <CSSPreflight />
         <ThemeProvider
           value={{
             ...finalOptions,
+            nav: finalNav,
             base: import.meta.env.BASE_URL,
             // vite-plugin-react-pages will inject `__HASH_ROUTER__: boolean`
             // @ts-ignore
@@ -164,7 +183,10 @@ export function createTheme(options: ThemeOptions = {}) {
             loadedRoutePath: loadedRoutePath.current,
             sidebarOpen,
             setSidebarOpen,
+            homePath,
             blogPaths,
+            locales,
+            currentLocale,
           }}
         >
           {content}

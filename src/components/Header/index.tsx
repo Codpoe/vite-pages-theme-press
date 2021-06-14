@@ -7,7 +7,7 @@ import { ThemeModeSwitch } from '../ThemeModeSwitch';
 import { Menu as IconMenu } from '../Icons';
 
 export const Header: React.FC = () => {
-  const { logo, title, setSidebarOpen } = useTheme();
+  const { logo, title, setSidebarOpen, homePath } = useTheme();
 
   return (
     <header className="sticky top-0 z-30 h-16 bg-white border-b dark:(bg-dark-700 border-dark-200)">
@@ -18,7 +18,7 @@ export const Header: React.FC = () => {
         >
           <IconMenu />
         </div>
-        <Link className="flex items-center space-x-2" to="/">
+        <Link className="flex items-center space-x-2" to={homePath}>
           {logo && <img className="h-8 min-w-8" src={logo} alt="logo" />}
           {title && (
             <h1 className="text-xl text-gray-900 font-semibold dark:text-gray-200">
