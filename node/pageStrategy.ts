@@ -1,7 +1,7 @@
 import { spawnSync } from 'child_process';
 import {
   extractStaticData,
-  DefaultPageStrategy,
+  PageStrategy,
   FileHandler,
   File,
 } from 'vite-plugin-react-pages';
@@ -58,11 +58,18 @@ export const defaultFileHandler: FileHandler = async (file, api) => {
   };
 };
 
-export class PressPageStrategy extends DefaultPageStrategy {
+export class PressPageStrategy extends PageStrategy {
   constructor(
     opts: { extraFindPages?: FindPages; fileHandler?: FileHandler } = {}
   ) {
     const { extraFindPages, fileHandler = defaultFileHandler } = opts;
-    super({ extraFindPages, fileHandler });
+
+    super(pagesDir => {
+      const helpers = this.createHelpers(fileHandler);
+      helpers.watchFiles(pagesDir, '**/*$.{md,mdx,js,jsx,ts,tsx}');
+      if (typeof extraFindPages === 'function') {
+        extraFindPages(pagesDir, helpers);
+      }
+    });
   }
 }
