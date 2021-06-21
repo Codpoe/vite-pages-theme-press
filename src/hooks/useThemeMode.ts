@@ -1,4 +1,5 @@
 import { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import { IN_BROWSER } from '../constants';
 
 export type ThemeMode = 'light' | 'dark';
 
@@ -29,7 +30,9 @@ function toggleClass(mode: ThemeMode) {
   }
 }
 
-toggleClass(getThemeMode());
+if (IN_BROWSER) {
+  toggleClass(getThemeMode());
+}
 
 export function useThemeMode(): [
   ThemeMode,
@@ -39,10 +42,7 @@ export function useThemeMode(): [
 
   useEffect(() => {
     toggleClass(mode);
-
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem(STORAGE_KEY, mode);
-    }
+    window.localStorage.setItem(STORAGE_KEY, mode);
   }, [mode]);
 
   return [mode, setMode];

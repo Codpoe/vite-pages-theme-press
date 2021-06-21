@@ -6,8 +6,9 @@ import { createPortal } from 'react-dom';
 import { useHistory, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useDocSearchKeyboardEvents } from '@docsearch/react';
-import { Search as IconSearch } from '../Icons';
 import { useTheme } from '../../context';
+import { IN_BROWSER } from '../../constants';
+import { Search as IconSearch } from '../Icons';
 
 let DocSearchModal: React.ComponentType<any> | null = null;
 
@@ -97,7 +98,8 @@ export const Search: React.FC = () => {
         <IconSearch />
       </button>
 
-      {isOpen &&
+      {IN_BROWSER &&
+        isOpen &&
         createPortal(
           // TODO: filter language
           <DocSearchModal

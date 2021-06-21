@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { IN_BROWSER } from '../constants';
 
 function resolveHash() {
-  return decodeURIComponent(
-    typeof window !== 'undefined' ? window.location.hash : ''
-  ).slice(1);
+  return decodeURIComponent(IN_BROWSER ? window.location.hash : '').slice(1);
 }
 
 export function useHash() {

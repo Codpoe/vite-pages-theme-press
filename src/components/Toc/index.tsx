@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce';
 import { useHash } from '../../hooks/useHash';
 import { useScroll } from '../../hooks/useScroll';
 import { useMutation } from '../../hooks/useMutation';
+import { IN_BROWSER } from '../../constants';
 import { Link } from '../Link';
 
 export const Toc: React.FC = () => {
@@ -50,13 +51,15 @@ export const Toc: React.FC = () => {
   }, [hit, headings]);
 
   const updateHeadings = useCallback(() => {
-    const markdownBody = document.querySelector('.markdown-body');
-    const newHeadings = Array.prototype.slice.call(
-      markdownBody?.querySelectorAll('h2,h3') || []
-    ) as HTMLElement[];
+    if (IN_BROWSER) {
+      const markdownBody = document.querySelector('.markdown-body');
+      const newHeadings = Array.prototype.slice.call(
+        markdownBody?.querySelectorAll('h2,h3') || []
+      ) as HTMLElement[];
 
-    setHeadings(newHeadings);
-    setHit(undefined);
+      setHeadings(newHeadings);
+      setHit(undefined);
+    }
   }, []);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -115,7 +118,9 @@ export const Toc: React.FC = () => {
       );
     },
     {
-      target: () => document.querySelector('.markdown-body'),
+      target: IN_BROWSER
+        ? () => document.querySelector('.markdown-body')
+        : null,
       options: { childList: true },
       deps: [updateHeadings],
     }

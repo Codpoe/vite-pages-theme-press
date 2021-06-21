@@ -41,12 +41,7 @@ export const Items: React.FC<ItemsProps> = props => {
   );
 
   useEffect(() => {
-    if (
-      !inside ||
-      !elRef.current ||
-      typeof window === 'undefined' ||
-      !window.MutationObserver
-    ) {
+    if (!inside || !elRef.current || !window.MutationObserver) {
       return;
     }
 
