@@ -86,14 +86,14 @@ export function createTheme(options: ThemeOptions = {}) {
         .map(([pageId]) => pageId.replace(/\/:page$/, ''));
     }, [staticData]);
 
-    const siteTitle = useMemo(() => {
+    const siteTitle = (() => {
       const pageTitle = staticData[loadedRoutePath.current]?.main?.title || '';
 
       if (pageTitle && finalOptions.title) {
         return `${pageTitle} | ${finalOptions.title}`;
       }
       return pageTitle || finalOptions.title;
-    }, [staticData, finalOptions.title]);
+    })();
 
     let content: any;
 
