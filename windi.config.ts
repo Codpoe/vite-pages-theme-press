@@ -8,7 +8,6 @@ const colorVars = [
   'c-bg-lighter',
   'c-bg-nav',
   'c-bg-sidebar',
-  'c-bg-arrow',
   'c-text',
   'c-text-light',
   'c-text-lighter',

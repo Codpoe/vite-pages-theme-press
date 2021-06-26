@@ -274,7 +274,7 @@ export const Code: React.FC<{
             {language}
           </span>
           {title && (
-            <div className="px-5 py-3 border-b border-code-highlight-bg font-medium">
+            <div className="px-5 py-3 border-b border-code-highlight-bg font-medium text-code-line-number">
               {title}
             </div>
           )}
