@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "vite --config docs/vite.config.ts",
     "build": "vite build && node scripts/add-css-import.js && yarn build:types && yarn build:node",
-    "build:types": "tsc && rollup -i dist/dts/index.d.ts -o dist/index.d.ts -f es -p rollup-plugin-dts && rimraf dist/dts",
+    "build:types": "tsc && node scripts/remove-css-import.js && rollup -i dist/dts/index.d.ts -o dist/index.d.ts -f es -p rollup-plugin-dts && rimraf dist/dts",
     "build:node": "tsc -p node",
     "build:docs": "vite build --config docs/vite.config.ts",
     "preview": "vite preview --config docs/vite.config.ts",
