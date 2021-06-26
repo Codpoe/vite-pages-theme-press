@@ -38,12 +38,12 @@ export const HomeLayout: React.FC = props => {
                 </div>
               ))}
             {heroText && (
-              <h1 className="my-7 text-center text-5xl font-semibold text-gray-800 <sm:(text-3xl my-5) dark:text-gray-200">
+              <h1 className="my-7 text-center text-5xl font-semibold <sm:(text-3xl my-5)">
                 {heroText}
               </h1>
             )}
             {tagline && (
-              <p className="my-7 text-center text-2xl text-gray-500 <sm:(text-xl my-5) dark:text-gray-400">
+              <p className="my-7 text-center text-2xl text-c-text-lighter <sm:(text-xl my-5)">
                 {tagline}
               </p>
             )}
@@ -64,16 +64,16 @@ export const HomeLayout: React.FC = props => {
             )}
           </header>
           {features && (
-            <div className="grid grid-cols-[repeat(3,1fr)] gap-10 my-12 pt-10 border-t dark:border-dark-200 <sm:grid-cols-1">
+            <div className="grid grid-cols-[repeat(3,1fr)] gap-10 my-12 pt-10 border-t border-c-divider <sm:grid-cols-1">
               {features.map((feature, index) => (
                 <div key={index}>
                   {feature.title && (
-                    <h2 className="mb-3 text-xl font-medium text-gray-700 dark:text-gray-200">
+                    <h2 className="mb-3 text-xl font-medium text-c-text">
                       {feature.title}
                     </h2>
                   )}
                   {feature.details && (
-                    <p className="text-base text-gray-500 dark:text-gray-400">
+                    <p className="text-base text-c-text-light">
                       {feature.details}
                     </p>
                   )}

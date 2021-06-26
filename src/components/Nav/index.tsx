@@ -19,7 +19,7 @@ export const Nav: React.FC<NavProps> = props => {
 
   return (
     <ul
-      className={`${className} items-center text-[0.9rem] text-gray-700 font-medium leading-normal space-x-6 flex <md:hidden dark:text-gray-300`}
+      className={`${className} items-center text-[0.9rem] font-medium leading-normal space-x-6 flex <md:hidden`}
     >
       {nav.map((item, index) => {
         if (item.items) {
@@ -27,17 +27,17 @@ export const Nav: React.FC<NavProps> = props => {
             <li key={index} className="group relative">
               <div className="flex items-center cursor-pointer group">
                 {item.text}
-                <ChevronDown className="ml-1 text-gray-400 group-hover:(transform rotate-180) transition-transform" />
+                <ChevronDown className="ml-1 text-c-text-lighter group-hover:(transform rotate-180) transition-transform" />
               </div>
               <div className="absolute top-full right-0 pt-2 hidden group-hover:block">
-                <ul className="py-[6px] bg-white overflow-y-auto rounded-md border shadow-sm text-sm dark:(bg-dark-700 border-dark-200)">
+                <ul className="py-[6px] bg-c-bg overflow-y-auto rounded-md border border-c-divider shadow-sm text-sm">
                   {item.items.map((subItem, index) => (
                     <li key={index}>
                       <Link
                         {...subItem}
                         to={subItem.link}
                         color={false}
-                        className="w-full px-4 font-normal leading-9 whitespace-nowrap hover:(text-primary-500) transition-colors"
+                        className="w-full px-4 font-normal leading-9 whitespace-nowrap hover:text-c-brand transition-colors"
                       >
                         {subItem.text}
                       </Link>
@@ -55,9 +55,9 @@ export const Nav: React.FC<NavProps> = props => {
               {...item}
               to={item.link}
               color={false}
-              className={`border-b-2 -mb-0.5 transition-colors hover:border-primary-500 ${
+              className={`border-b-2 -mb-0.5 transition-colors hover:border-c-brand ${
                 matchPath(pathname, item.link)
-                  ? 'border-primary-500'
+                  ? 'border-c-brand'
                   : 'border-transparent'
               }`}
             >

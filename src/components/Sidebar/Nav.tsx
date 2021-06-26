@@ -31,7 +31,7 @@ export const Nav: React.FC = () => {
   }
 
   return (
-    <ul className="mb-4 pb-4 border-b leading-9 text-gray-700 hidden <md:block dark:(border-dark-200 text-gray-300)">
+    <ul className="mb-4 pb-4 border-b border-c-divider leading-9 hidden <md:block">
       {nav.map((item, index) => {
         if (item.items) {
           const isOpen = open.includes(item);
@@ -50,7 +50,7 @@ export const Nav: React.FC = () => {
                 />
               </div>
               {isOpen && (
-                <ul className="text-[0.9rem] leading-8 dark:border-dark-200)">
+                <ul className="text-[0.9rem] leading-8">
                   {item.items.map((subItem, index) => (
                     <li key={index}>
                       <Link
@@ -76,7 +76,7 @@ export const Nav: React.FC = () => {
               to={item.link}
               color={false}
               className={`w-full font-semibold ${
-                matchPath(pathname, item.link) ? 'text-primary-500' : ''
+                matchPath(pathname, item.link) ? 'text-c-brand' : ''
               }`}
             >
               {item.text}

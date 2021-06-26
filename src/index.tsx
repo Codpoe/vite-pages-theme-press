@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { Theme as PagesTheme } from 'vite-plugin-react-pages';
 import { useStaticData } from 'vite-plugin-react-pages/client';
 import { Helmet } from 'react-helmet';
-import { CSSPreflight } from './components/CSSPreflight';
 import { ErrorLayout } from './components/ErrorLayout';
 import { H2, P } from './components/Mdx/mdxComponents';
 import { ThemeProvider } from './context';
@@ -17,6 +16,8 @@ import {
   getLocales,
   replaceLocaleInPath,
 } from './utils';
+
+import './styles/base.less';
 
 export * from './types';
 
@@ -35,6 +36,12 @@ export function createTheme(options: ThemeOptions = {}) {
     } else if (loadState.type === 'loaded') {
       loadedRoutePath.current = loadState.routePath;
     }
+
+    console.log('[vite-pages-theme-press]\n ', {
+      loadState,
+      loadedData,
+      staticData,
+    });
 
     const finalOptions = mergeThemeOptions(options, pathname);
 
@@ -97,8 +104,6 @@ export function createTheme(options: ThemeOptions = {}) {
 
     let content: any;
 
-    console.log({ staticData, loadedData });
-
     useLoadProgress(loadState);
 
     useScrollToTop(loadState);
@@ -107,7 +112,7 @@ export function createTheme(options: ThemeOptions = {}) {
       content = <ErrorLayout />;
     } else {
       if (!loadedRoutePath.current) {
-        return <CSSPreflight />;
+        return null;
       }
 
       const pageData = loadedData[loadedRoutePath.current];
@@ -164,11 +169,14 @@ export function createTheme(options: ThemeOptions = {}) {
 
     return (
       <>
-        <Helmet htmlAttributes={{ lang: currentLocale?.locale }}>
+        <Helmet
+          {...(currentLocale?.locale && {
+            htmlAttributes: { lang: currentLocale.locale },
+          })}
+        >
           {siteTitle && <title>{siteTitle}</title>}
           {finalOptions.head}
         </Helmet>
-        <CSSPreflight />
         <ThemeProvider
           value={{
             ...finalOptions,

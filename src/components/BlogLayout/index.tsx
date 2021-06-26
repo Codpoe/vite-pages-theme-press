@@ -30,10 +30,10 @@ export const BlogLayout: React.FC = props => {
           !pageId.endsWith(':page')
       )
       .sort(([, pageA], [, pageB]) => {
-        if (!pageA.lastUpdated) {
+        if (!pageA.updatedTime) {
           return 1;
         }
-        if (!pageB.lastUpdated) {
+        if (!pageB.updatedTime) {
           return -1;
         }
         return pageA - pageB;
@@ -55,7 +55,7 @@ export const BlogLayout: React.FC = props => {
     <BaseLayout>
       <div className="max-w-screen-md mx-auto relative">
         <Mdx>{children}</Mdx>
-        <div className="divide-y dark:divide-dark-200">
+        <div className="divide-y divide-c-divider">
           {slicedBlogPosts.map(([link, data]) => (
             <Item key={link} {...data.main} link={link} />
           ))}

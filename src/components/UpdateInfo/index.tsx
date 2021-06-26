@@ -76,8 +76,8 @@ export const UpdateInfo: React.FC<UpdateInfoProps> = props => {
     : '';
 
   const realLastUpdated =
-    lastUpdated && data.lastUpdated
-      ? new Date(data.lastUpdated).toLocaleString()
+    lastUpdated && data.updatedTime
+      ? new Date(data.updatedTime).toLocaleString()
       : '';
 
   const isBlog = blogPaths.some(path => loadedRoutePath.startsWith(path));
@@ -91,7 +91,7 @@ export const UpdateInfo: React.FC<UpdateInfoProps> = props => {
       {/* if it is a blog, hide edit link */}
       {!isBlog && realEditLink && (
         <Link
-          className="font-medium text-gray-700 hover:text-primary-500 transition-colors dark:text-gray-300"
+          className="font-medium text-c-text-light hover:text-c-brand transition-colors"
           to={realEditLink}
           color={false}
         >
@@ -100,10 +100,12 @@ export const UpdateInfo: React.FC<UpdateInfoProps> = props => {
       )}
       {realLastUpdated && (
         <div>
-          <span className="inline-block mr-1 font-medium text-gray-700 dark:text-gray-300">
+          <span className="inline-block mr-1 font-medium text-c-text-light">
             {`${lastUpdatedText}:`}
           </span>
-          <span className="inline-block text-gray-400">{realLastUpdated}</span>
+          <span className="inline-block text-c-text-lighter">
+            {realLastUpdated}
+          </span>
         </div>
       )}
     </div>

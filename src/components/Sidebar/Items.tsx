@@ -81,7 +81,7 @@ export const Items: React.FC<ItemsProps> = props => {
     <div
       className={`${
         inside
-          ? 'ml-[7px] border-l transition-all overflow-hidden dark:border-dark-200'
+          ? 'ml-[7px] border-l border-c-divider transition-all overflow-hidden'
           : ''
       } ${inside && !expanded ? '!h-0' : ''}`}
       style={{ height: inside && height ? `${height}px` : 'auto' }}
@@ -102,12 +102,12 @@ export const Items: React.FC<ItemsProps> = props => {
               <li key={index} className={`${inside ? 'pl-3' : ''}`}>
                 <div
                   className={`group flex items-center py-[7px] cursor-pointer transition-all ${
-                    hit ? 'text-gray-900 font-semibold dark:text-gray-200' : ''
+                    hit ? 'text-c-text font-semibold' : ''
                   }`}
                   onClick={() => toggleExpand(item)}
                 >
                   <ChevronRight
-                    className={`mr-2 text-sm text-gray-400 group-hover:text-primary-500 transition-all transform ${
+                    className={`mr-2 text-sm text-c-text-lighter group-hover:text-c-brand transition-all transform ${
                       active ? 'rotate-90' : ''
                     }`}
                   />
@@ -131,12 +131,12 @@ export const Items: React.FC<ItemsProps> = props => {
                 {...item}
                 to={item.link}
                 color={false}
-                className={`w-full py-[7px] transition-all hover:text-primary-500 ${
+                className={`w-full py-[7px] transition-all hover:text-c-brand ${
                   inside ? 'pl-3' : ''
-                } ${hit ? 'text-primary-500 font-semibold' : ''}`}
+                } ${hit ? 'text-c-brand font-semibold' : ''}`}
               >
                 <div
-                  className={`w-1 h-1 ml-1 mr-[14px] rounded-full bg-gray-400 animate-delay-100 ${
+                  className={`w-1 h-1 ml-1 mr-[14px] rounded-full bg-c-text-lighter animate-delay-100 ${
                     loading ? 'animate-ping' : ''
                   }`}
                 ></div>

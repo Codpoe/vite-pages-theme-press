@@ -150,10 +150,8 @@ export const Toc: React.FC = () => {
         return (
           <Link
             key={index}
-            className={`w-full flex items-center py-[6px] text-sm transition-colors hover:text-gray-900 dark:hover:text-gray-200 ${
-              isActive
-                ? 'text-gray-700 dark:text-gray-300'
-                : 'text-gray-400 dark:text-gray-500'
+            className={`w-full flex items-center py-[6px] text-sm transition-colors hover:text-c-text ${
+              isActive ? 'text-c-text' : 'text-c-text-lightest'
             } ${level === 2 ? 'font-semibold' : ''}`}
             to={`#${item.id}`}
             color={false}

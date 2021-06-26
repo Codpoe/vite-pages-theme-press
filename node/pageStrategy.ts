@@ -38,8 +38,8 @@ export const defaultFileHandler: FileHandler = async (file, api) => {
 
   if (staticData.sourceType === 'md') {
     staticData.title = staticData.title ?? (await extractMdTitle(file));
-    staticData.lastUpdated =
-      staticData.lastUpdated ?? getGitLastUpdatedTimeStamp(file);
+    staticData.updatedTime =
+      staticData.updatedTime ?? getGitLastUpdatedTimeStamp(file);
   }
 
   // if blog, add additional page

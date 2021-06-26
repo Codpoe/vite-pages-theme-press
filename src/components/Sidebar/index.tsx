@@ -61,13 +61,13 @@ export const Sidebar: React.FC = () => {
   return (
     <>
       <aside
-        className={`border-r overflow-y-auto <md:(block w-64 px-4 py-3 fixed top-16 right-full bottom-0 z-20 bg-white border-r transform transition-transform dark:bg-dark-700) md:(w-56 mr-9 sticky top-24) dark:border-dark-200 ${
+        className={`border-r border-c-divider overflow-y-auto <md:(block w-64 px-4 py-3 fixed top-16 right-full bottom-0 z-20 bg-c-bg transform transition-transform) md:(w-56 mr-9 sticky top-24) ${
           sidebarOpen ? '<md:translate-x-full' : ''
         } ${showSidebar ? 'block' : 'hidden'} ${styles.sidebar}`}
       >
         <Nav />
         {hitItems.length > 0 && (
-          <div className="text-gray-700 dark:text-gray-300">
+          <div className="text-c-text-light">
             <Items
               items={sidebar}
               hitItems={hitItems}

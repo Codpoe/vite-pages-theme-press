@@ -24,13 +24,15 @@ export const Link: React.FC<LinkProps> = props => {
   const isHash = to.startsWith('#');
 
   const finalClassName = `${className} ${
-    color ? 'text-primary-500 hover:text-primary-400 transition-colors' : ''
+    color ? 'text-c-brand hover:text-c-brand-light transition-colors' : ''
   } inline-flex items-center`;
 
   const finalChildren = (
     <>
       {children}
-      {icon && !isSameOrigin && !isHash && <ExternalLink className="mx-1" />}
+      {icon && !isSameOrigin && !isHash && (
+        <ExternalLink className="mx-1 text-c-text-lighter" />
+      )}
     </>
   );
 

@@ -19,9 +19,9 @@ const Item: React.FC<{ type: 'prev' | 'next'; item?: SidebarItem }> = ({
       }`}
     >
       {type === 'prev' ? (
-        <ArrowLeft className="flex-shrink-0 mr-1 text-gray-700 dark:text-gray-400" />
+        <ArrowLeft className="flex-shrink-0 mr-1" />
       ) : (
-        <ArrowRight className="flex-shrink-0 ml-1 text-gray-700 dark:text-gray-400" />
+        <ArrowRight className="flex-shrink-0 ml-1" />
       )}
       <Link to={item.link}>{item.text}</Link>
     </div>
@@ -84,7 +84,7 @@ export const PrevNext: React.FC<PrevNextProps> = props => {
   }
 
   return (
-    <div className="flex justify-between items-center py-4 space-x-8 border-t dark:border-dark-200">
+    <div className="flex justify-between items-center py-4 space-x-8 border-t border-c-divider">
       <Item type="prev" item={prev} />
       <Item type="next" item={next} />
     </div>

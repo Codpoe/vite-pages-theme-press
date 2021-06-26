@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
-import prismTheme from 'prism-react-renderer/themes/palenight';
 import { Link } from '../Link';
 import { Link as IconLink } from '../Icons';
 import { useTheme } from '../../context';
@@ -22,7 +21,7 @@ export const HeadingAnchor: React.FC<{ id: string }> = ({ id }) => {
       to={`#${id}`}
       icon={false}
       color={false}
-      className="<md:hidden absolute top-[52%] right-full transform -translate-y-1/2 p-3 text-base text-primary-500 hover:text-primary-600 transition-colors opacity-0 group-hover:opacity-100"
+      className="<md:hidden absolute top-[52%] right-full transform -translate-y-1/2 p-3 text-base text-c-brand hover:text-c-brand-light transition-colors opacity-0 group-hover:opacity-100"
     >
       <IconLink />
     </Link>
@@ -36,7 +35,7 @@ export const H1: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-24 mb-7 pb-3 border-b tracking-wide text-3xl text-gray-900 font-semibold dark:(border-dark-200 text-gray-200)"
+      className="pt-24 -mt-24 mb-7 pb-3 border-b border-c-divider tracking-wide text-3xl font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -53,7 +52,7 @@ export const H2: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-4 tracking-wide text-2xl text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-16 mb-4 tracking-wide text-2xl font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -70,7 +69,7 @@ export const H3: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-xl text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-16 mb-3 text-xl font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -87,7 +86,7 @@ export const H4: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-lg text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-16 mb-3 text-lg font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -104,7 +103,7 @@ export const H5: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-base text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-16 mb-3 text-base font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -121,7 +120,7 @@ export const H6: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-sm text-gray-900 font-semibold dark:text-gray-200"
+      className="pt-24 -mt-16 mb-3 text-sm font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -132,12 +131,7 @@ export const H6: React.FC = ({ children, ...restProps }) => {
 };
 
 export const P: React.FC = props => {
-  return (
-    <p
-      {...props}
-      className=" my-5 text-base text-gray-700 leading-7 dark:text-gray-300"
-    />
-  );
+  return <p {...props} className=" my-5 text-base leading-7" />;
 };
 
 export const Ul: React.FC<{ className?: string }> = props => {
@@ -148,18 +142,13 @@ export const Ul: React.FC<{ className?: string }> = props => {
         props.className?.includes('contains-task-list')
           ? 'list-none'
           : 'list-disc'
-      } mb-6 text-gray-700 leading-7 dark:text-gray-300`}
+      } mb-6 leading-7`}
     />
   );
 };
 
 export const Ol: React.FC = props => {
-  return (
-    <ol
-      {...props}
-      className="list-decimal mb-6 text-gray-700 leading-7 dark:text-gray-300"
-    />
-  );
+  return <ol {...props} className="list-decimal mb-6 leading-7" />;
 };
 
 export const Li: React.FC<{ className?: string }> = props => {
@@ -173,10 +162,7 @@ export const Li: React.FC<{ className?: string }> = props => {
 
 export const Blockquote: React.FC = props => {
   return (
-    <blockquote
-      {...props}
-      className="my-5 px-4 border-l-3 border-primary-500"
-    />
+    <blockquote {...props} className="my-5 px-4 border-l-3 border-c-brand" />
   );
 };
 
@@ -190,24 +176,19 @@ export const Img: React.FC = props => {
 };
 
 export const Hr: React.FC = props => {
-  return <hr {...props} className="my-9 border-gray-200 dark:border-dark-50" />;
+  return <hr {...props} className="my-9 border-c-divider" />;
 };
 
 export const Table: React.FC = props => {
   return (
-    <div className="w-full my-8 overflow-y-auto text-[0.9rem] leading-snug text-gray-700 dark:text-gray-300">
+    <div className="w-full my-8 overflow-y-auto text-[0.9rem] leading-snug">
       <table {...props} className="w-full min-w-max border-collapse" />
     </div>
   );
 };
 
 export const Tr: React.FC = props => {
-  return (
-    <tr
-      {...props}
-      className="hover:bg-gray-50 transition-colors dark:hover:bg-dark-400"
-    />
-  );
+  return <tr {...props} className="hover:bg-c-bg-light transition-colors" />;
 };
 
 // FIXME: 圆角不生效
@@ -218,9 +199,9 @@ export const Th: React.FC<{ align?: 'left' | 'right' }> = ({
   return (
     <th
       {...restProps}
-      className={`h-10 px-3 py-2 border-t-1px border-b-1px bg-gray-50 font-semibold first:(border-l-1px rounded-tl-md rounded-bl-md) last:(border-r-1px rounded-tr-md rounded-br-md) ${
+      className={`h-10 px-3 py-2 border-c-divider border-t-1px border-b-1px bg-c-bg-light font-semibold first:(border-l-1px rounded-tl-md rounded-bl-md) last:(border-r-1px rounded-tr-md rounded-br-md) ${
         align === 'right' ? 'text-right' : 'text-left'
-      } dark:(border-dark-200 bg-dark-400)`}
+      }`}
     />
   );
 };
@@ -232,7 +213,7 @@ export const Td: React.FC<{ align?: 'left' | 'right' }> = ({
   return (
     <td
       {...restProps}
-      className={`h-10 px-3 py-4 border-b border-gray-200 dark:border-dark-200 ${
+      className={`h-10 px-3 py-4 border-b border-c-divider ${
         align === 'right' ? 'text-right' : 'text-left'
       }`}
     />
@@ -284,18 +265,16 @@ export const Code: React.FC<{
       {...defaultProps}
       code={(children as string).trim()}
       language={language}
-      theme={prismTheme}
     >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+      {({ className, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} relative my-5 rounded-md text-[0.9rem] leading-normal`}
-          style={style}
+          className={`${className} relative my-5 rounded-md bg-code-bg text-[0.9rem] leading-relaxed`}
         >
-          <span className="absolute top-0 right-0 px-2 py-1 text-xs text-gray-400 select-none">
+          <span className="absolute top-0 right-0 px-2 py-1 text-xs text-code-line-number select-none">
             {language}
           </span>
           {title && (
-            <div className="code-title px-5 py-3 border-b border-gray-500 text-[0.9rem] font-medium">
+            <div className="px-5 py-3 border-b border-code-highlight-bg font-medium">
               {title}
             </div>
           )}
@@ -303,8 +282,8 @@ export const Code: React.FC<{
             <code className="block w-full min-w-max py-3">
               {tokens.map((line, i) => {
                 const highlighted = highlightLines.includes(i + 1);
-                // omit style property, use custom css instead.
-                const { className, ...lineProps } = getLineProps({
+                // just pick className property, and use custom css instead.
+                const { className } = getLineProps({
                   line,
                   key: i,
                 });
@@ -312,28 +291,28 @@ export const Code: React.FC<{
                 return (
                   <div
                     key={i}
-                    {...lineProps}
                     className={`${className} relative ${
-                      highlighted ? 'bg-[#404250]' : ''
+                      highlighted ? 'bg-code-highlight-bg' : ''
                     }`}
                   >
                     <span
-                      className="sticky left-0 inline-block w-11 pr-3 mr-3 text-right whitespace-nowrap text-gray-500 select-none"
-                      style={{
-                        backgroundColor: highlighted
-                          ? '#404250'
-                          : prismTheme.plain.backgroundColor,
-                      }}
+                      className={`sticky left-0 inline-block w-11 pr-3 mr-3 text-right whitespace-nowrap text-code-line-number select-none ${
+                        highlighted ? 'bg-code-highlight-bg' : 'bg-code-bg'
+                      }`}
                     >
                       {i + 1}
                     </span>
                     {line.map((token, i) => {
-                      // omit style property, use custom css instead.
-                      const tokenProps = getTokenProps({
+                      // just pick className property, and use custom css instead.
+                      const { className, children } = getTokenProps({
                         token,
                         key: i,
                       });
-                      return <span key={i} {...tokenProps} />;
+                      return (
+                        <span key={i} className={className}>
+                          {children}
+                        </span>
+                      );
                     })}
                   </div>
                 );

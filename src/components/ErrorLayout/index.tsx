@@ -17,8 +17,8 @@ export const ErrorLayout: React.FC = () => {
 
   return (
     <BaseLayout>
-      <div className="h-full flex justify-center items-center font-semibold text-gray-900 dark:text-gray-200">
-        <h1 className="pr-6 border-r border-gray-400 text-3xl dark:border-dark-50">
+      <div className="h-full flex justify-center items-center font-semibold">
+        <h1 className="pr-6 border-r border-c-divider text-3xl">
           {is404 ? '404' : 'Error'}
         </h1>
         <p className="pl-6 text-base">

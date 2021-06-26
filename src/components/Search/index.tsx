@@ -19,7 +19,7 @@ async function ensureDocSearchModal() {
 
   [{ DocSearchModal }] = await Promise.all([
     import('@docsearch/react/modal'),
-    import('./style.less'),
+    import('@docsearch/css/dist/style.css'),
   ]);
 }
 

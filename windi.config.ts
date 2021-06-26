@@ -1,5 +1,24 @@
 import { defineConfig } from 'windicss/helpers';
-import colors from 'windicss/colors';
+
+const colorVars = [
+  'c-brand',
+  'c-brand-light',
+  'c-bg',
+  'c-bg-light',
+  'c-bg-lighter',
+  'c-bg-nav',
+  'c-bg-sidebar',
+  'c-bg-arrow',
+  'c-text',
+  'c-text-light',
+  'c-text-lighter',
+  'c-text-lightest',
+  'c-text-accent',
+  'c-divider',
+  'code-bg',
+  'code-highlight-bg',
+  'code-line-number',
+];
 
 export default defineConfig({
   extract: {
@@ -8,19 +27,19 @@ export default defineConfig({
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {
-        primary: colors.blue,
-      },
+      colors: colorVars.reduce((acc, cur) => {
+        acc[cur] = `var(--${cur})`;
+        return acc;
+      }, {} as Record<string, string>),
     },
   },
   shortcuts: {
     'btn-base':
       'focus:outline-none inline-flex justify-center items-center rounded-md transition-colors',
-    btn: 'btn-base bg-gray-100 text-gray-700 hover:bg-gray-200 dark:(bg-dark-300 text-gray-200) dark:hover:bg-dark-100',
-    'btn-primary': 'btn-base bg-primary-500 text-white hover:bg-primary-400',
+    btn: 'btn-base text-c-text bg-c-bg-light hover:bg-c-bg-lighter',
+    'btn-primary': 'btn-base bg-c-brand text-white hover:bg-c-brand-light',
     'btn-hollow':
-      'btn-base border-2 border-primary-500 text-primary-500 hover:(bg-primary-500 text-white)',
-    'btn-text':
-      'btn-base text-gray-700 hover:text-primary-500 dark:text-gray-200 dark:hover:text-primary-500',
+      'btn-base border-2 border-c-brand text-c-brand hover:(bg-cd-brand text-white)',
+    'btn-text': 'btn-base text-c-text hover:text-c-brand',
   },
 });
