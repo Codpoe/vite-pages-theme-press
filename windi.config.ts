@@ -38,7 +38,7 @@ export default defineConfig({
     btn: 'btn-base text-c-text bg-c-bg-light hover:bg-c-bg-lighter',
     'btn-primary': 'btn-base bg-c-brand text-white hover:bg-c-brand-light',
     'btn-hollow':
-      'btn-base border-2 border-c-brand text-c-brand hover:(bg-cd-brand text-white)',
+      'btn-base border-2 border-c-brand text-c-brand hover:(bg-c-brand text-white)',
     'btn-text': 'btn-base text-c-text hover:text-c-brand',
   },
 });
