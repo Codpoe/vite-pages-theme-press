@@ -69,7 +69,7 @@ export const H3: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-xl font-semibold"
+      className="pt-24 -mt-16 mb-4 text-xl font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -86,7 +86,7 @@ export const H4: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-lg font-semibold"
+      className="pt-24 -mt-16 mb-4 text-lg font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -103,7 +103,7 @@ export const H5: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-base font-semibold"
+      className="pt-24 -mt-16 mb-4 text-base font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -120,7 +120,7 @@ export const H6: React.FC = ({ children, ...restProps }) => {
       {...restProps}
       id={id}
       data-title={children?.toString()}
-      className="pt-24 -mt-16 mb-3 text-sm font-semibold"
+      className="pt-24 -mt-16 mb-4 text-sm font-semibold"
     >
       <div className="group relative">
         <HeadingAnchor id={id} />
@@ -131,7 +131,7 @@ export const H6: React.FC = ({ children, ...restProps }) => {
 };
 
 export const P: React.FC = props => {
-  return <p {...props} className=" my-5 text-base leading-7" />;
+  return <p {...props} className="my-4 text-base leading-7" />;
 };
 
 export const Ul: React.FC<{ className?: string }> = props => {
@@ -142,13 +142,13 @@ export const Ul: React.FC<{ className?: string }> = props => {
         props.className?.includes('contains-task-list')
           ? 'list-none'
           : 'list-disc'
-      } mb-6 leading-7`}
+      } my-4 leading-7`}
     />
   );
 };
 
 export const Ol: React.FC = props => {
-  return <ol {...props} className="list-decimal mb-6 leading-7" />;
+  return <ol {...props} className="list-decimal my-4 leading-7" />;
 };
 
 export const Li: React.FC<{ className?: string }> = props => {
@@ -162,7 +162,7 @@ export const Li: React.FC<{ className?: string }> = props => {
 
 export const Blockquote: React.FC = props => {
   return (
-    <blockquote {...props} className="my-5 px-4 border-l-3 border-c-brand" />
+    <blockquote {...props} className="my-4 px-4 border-l-3 border-c-brand" />
   );
 };
 
@@ -181,7 +181,7 @@ export const Hr: React.FC = props => {
 
 export const Table: React.FC = props => {
   return (
-    <div className="w-full my-8 overflow-y-auto text-[0.9rem] leading-snug">
+    <div className="w-full my-4 overflow-y-auto text-[0.9rem] leading-snug">
       <table {...props} className="w-full min-w-max border-collapse" />
     </div>
   );
@@ -268,7 +268,7 @@ export const Code: React.FC<{
     >
       {({ className, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} relative my-5 rounded-md bg-code-bg text-[0.9rem] leading-relaxed`}
+          className={`${className} relative my-4 rounded-md bg-code-bg text-[0.9rem] leading-relaxed`}
         >
           <span className="absolute top-0 right-0 px-2 py-1 text-xs text-code-line-number select-none">
             {language}
