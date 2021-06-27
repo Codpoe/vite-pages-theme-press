@@ -29,6 +29,8 @@ export function createTheme(options: ThemeOptions = {}) {
     const staticData = useStaticData();
     const { pathname } = useLocation();
     const loadedRoutePath = useRef<string | undefined>();
+    const [hasSidebar, setHasSidebar] =
+      useState<boolean | undefined>(undefined);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     if (loadState.type === '404' || loadState.type === 'load-error') {
@@ -175,6 +177,9 @@ export function createTheme(options: ThemeOptions = {}) {
           })}
         >
           {siteTitle && <title>{siteTitle}</title>}
+          {finalOptions.description && (
+            <meta name="description" content={finalOptions.description} />
+          )}
           {finalOptions.head}
         </Helmet>
         <ThemeProvider
@@ -189,6 +194,8 @@ export function createTheme(options: ThemeOptions = {}) {
             loadState,
             loadedData,
             loadedRoutePath: loadedRoutePath.current,
+            hasSidebar: finalNav.length > 0 || hasSidebar,
+            setHasSidebar,
             sidebarOpen,
             setSidebarOpen,
             homePath,

@@ -9,6 +9,8 @@ export interface ThemeContextValue extends ThemeOptions {
   loadedData: PagesLoaded;
   loadedRoutePath: string;
   staticData: Record<string, any>;
+  hasSidebar: boolean | undefined;
+  setHasSidebar: Dispatch<SetStateAction<boolean>>;
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
   homePath?: string;

@@ -4,7 +4,7 @@ import { BaseLayout } from './components/BaseLayout';
 import { HomeLayout } from './components/HomeLayout';
 import { DocLayout } from './components/DocLayout';
 import { BlogLayout } from './components/BlogLayout';
-import { ThemeOptions } from './types';
+import { ThemeOptions, LocaleOption } from './types';
 
 export function getLayout(staticDataPart: Record<string, any> = {}) {
   const { layout, home, blog, sourceType } = staticDataPart;
@@ -38,12 +38,6 @@ export function mergeThemeOptions(
   return { ...options, ...options.themeOptionsByPaths?.[foundPath] };
 }
 
-interface LocaleOption {
-  locale: string;
-  localeText: React.ReactNode;
-  localePath: string;
-}
-
 export function getLocales(options: ThemeOptions): LocaleOption[] {
   const res: LocaleOption[] = [];
 
@@ -66,10 +60,6 @@ export function getLocales(options: ThemeOptions): LocaleOption[] {
       extractLocale(path, pathOptions);
     }
   );
-
-  if (res.length === 1) {
-    console.warn('Only one locale is found in theme options.');
-  }
 
   return res;
 }

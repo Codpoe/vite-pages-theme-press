@@ -8,8 +8,14 @@ import { SidebarItem } from './types';
 import styles from './style.module.less';
 
 export const Sidebar: React.FC = () => {
-  const { loadedRoutePath, loadState, sidebarOpen, setSidebarOpen } =
-    useTheme();
+  const {
+    loadedRoutePath,
+    loadState,
+    nav,
+    sidebarOpen,
+    setSidebarOpen,
+    setHasSidebar,
+  } = useTheme();
   const sidebar = useSidebar();
 
   const hitItems = useMemo(() => {
@@ -57,6 +63,14 @@ export const Sidebar: React.FC = () => {
   useEffect(() => {
     setSidebarOpen(false);
   }, [loadedRoutePath, setSidebarOpen]);
+
+  useEffect(() => {
+    setHasSidebar(Boolean(showSidebar || nav?.length));
+  }, [showSidebar, nav?.length, setHasSidebar]);
+
+  if (!showSidebar && !nav?.length) {
+    return null;
+  }
 
   return (
     <>
