@@ -222,10 +222,11 @@ export const Td: React.FC<{ align?: 'left' | 'right' }> = ({
 
 export const InlineCode: React.FC = ({ children, ...restProps }) => {
   return (
-    <code {...restProps} className="whitespace-pre-wrap text-pink-500">
-      <span className="select-none">`</span>
+    <code
+      {...restProps}
+      className="whitespace-pre-wrap px-2 py-0.5 rounded-3px bg-c-bg-light text-c-text-light text-[0.9em]"
+    >
       {children}
-      <span className="select-none">`</span>
     </code>
   );
 };
