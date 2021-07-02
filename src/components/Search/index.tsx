@@ -45,9 +45,7 @@ export const Search: React.FC = () => {
   const transformItems = useCallback(
     items => {
       return items.map(item => {
-        console.log(item);
         const { pathname, hash } = new URL(item.url);
-
         return {
           ...item,
           url: `${base.replace(/\/$/, '')}${pathname}${hash}`,

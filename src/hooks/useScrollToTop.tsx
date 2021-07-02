@@ -1,16 +1,22 @@
-import { useEffect } from 'react';
-import { LoadState } from 'vite-plugin-react-pages';
+import { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useScrollPromise } from './useScrollPromise';
 
-export function useScrollToTop(loadState: LoadState) {
+export function useScrollToTop(loadedRoutePath?: string) {
+  const { action } = useHistory();
+  const actionRef = useRef(action);
+  const scrollPromise = useScrollPromise();
+
+  actionRef.current = action;
+
   useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      !window.location.hash &&
-      loadState.type === 'loaded'
-    ) {
-      window.scrollTo({
-        top: 0,
-      });
+    if (actionRef.current === 'PUSH' && !window.location.hash) {
+      (async () => {
+        await scrollPromise.wait();
+        window.scrollTo({
+          top: 0,
+        });
+      })();
     }
-  }, [loadState]);
+  }, [loadedRoutePath, scrollPromise]);
 }

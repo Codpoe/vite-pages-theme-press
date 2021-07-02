@@ -29,8 +29,9 @@ export function createTheme(options: ThemeOptions = {}) {
     const staticData = useStaticData();
     const { pathname } = useLocation();
     const loadedRoutePath = useRef<string | undefined>();
-    const [hasSidebar, setHasSidebar] =
-      useState<boolean | undefined>(undefined);
+    const [hasSidebar, setHasSidebar] = useState<boolean | undefined>(
+      undefined
+    );
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     if (loadState.type === '404' || loadState.type === 'load-error') {
@@ -108,7 +109,7 @@ export function createTheme(options: ThemeOptions = {}) {
 
     useLoadProgress(loadState);
 
-    useScrollToTop(loadState);
+    useScrollToTop(loadedRoutePath.current);
 
     if (loadState.type === '404' || loadState.type === 'load-error') {
       content = <ErrorLayout />;

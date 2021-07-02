@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from 'react';
 import debounce from 'lodash/debounce';
 import { useHash } from '../../hooks/useHash';
 import { useScroll } from '../../hooks/useScroll';
@@ -10,6 +16,7 @@ export const Toc: React.FC = () => {
   const [headings, setHeadings] = useState<HTMLElement[]>([]);
   const [hit, setHit] = useState<HTMLElement>();
   const hash = useHash();
+  const elRef = useRef<HTMLDivElement>(null);
 
   // hit -> active
   const active = useMemo(() => {
@@ -51,7 +58,7 @@ export const Toc: React.FC = () => {
   }, [hit, headings]);
 
   const updateHeadings = useCallback(() => {
-    if (IN_BROWSER) {
+    if (IN_BROWSER && elRef.current) {
       const markdownBody = document.querySelector('.markdown-body');
       const newHeadings = Array.prototype.slice.call(
         markdownBody?.querySelectorAll('h2,h3') || []
@@ -66,7 +73,7 @@ export const Toc: React.FC = () => {
   const handleScroll = useCallback(
     debounce(
       () => {
-        if (!headings.length) {
+        if (!elRef.current || !headings.length) {
           return;
         }
 
@@ -108,7 +115,7 @@ export const Toc: React.FC = () => {
       mutations.forEach(
         debounce(
           (m: MutationRecord) => {
-            if (m.type === 'childList') {
+            if (m.type === 'childList' || m.type === 'attributes') {
               updateHeadings();
             }
           },
@@ -121,14 +128,18 @@ export const Toc: React.FC = () => {
       target: IN_BROWSER
         ? () => document.querySelector('.markdown-body')
         : null,
-      options: { childList: true },
+      options: {
+        subtree: true,
+        childList: true,
+        attributeFilter: ['data-title'],
+      },
       deps: [updateHeadings],
     }
   );
 
   // hash -> hit
   useEffect(() => {
-    const hitHeading = headings.find(item => item.id === hash);
+    const hitHeading = headings.find(item => item.id && item.id === hash);
 
     if (hitHeading) {
       setHit(hitHeading);
@@ -142,6 +153,7 @@ export const Toc: React.FC = () => {
     <div
       className="group sticky top-24 w-56 pl-9 pb-9 overflow-y-auto"
       style={{ maxHeight: 'calc(100vh - 8rem)' }}
+      ref={elRef}
     >
       {headings.map((item, index) => {
         const level = Number(item.tagName.substring(1, 2));

@@ -1,18 +1,30 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Highlight, { defaultProps, Language } from 'prism-react-renderer';
 import { Link } from '../Link';
 import { Link as IconLink } from '../Icons';
 import { useTheme } from '../../context';
 
-function resolveHeadingId(title: React.ReactNode) {
-  return `${title}`.trim().replace(/\s+/g, '-');
+function useParseHeading() {
+  const elRef = useRef<HTMLHeadingElement>(null);
+  const [title, setTitle] = useState<string>('');
+
+  useEffect(() => {
+    if (elRef.current) {
+      setTitle((elRef.current.textContent || '').trim());
+    }
+  }, []);
+
+  return {
+    ref: elRef,
+    title,
+  };
 }
 
-export const HeadingAnchor: React.FC<{ id: string }> = ({ id }) => {
+const HeadingAnchor: React.FC<{ id?: string }> = ({ id }) => {
   const { useHashRouter } = useTheme();
 
-  // 使用 hash router 时禁用 heading anchor
-  if (useHashRouter) {
+  // disable heading anchor while using hash router
+  if (useHashRouter || !id) {
     return null;
   }
 
@@ -28,13 +40,19 @@ export const HeadingAnchor: React.FC<{ id: string }> = ({ id }) => {
   );
 };
 
-export const H1: React.FC = ({ children, ...restProps }) => {
-  const id = resolveHeadingId(children);
+export const H1: React.FC<{ id?: string }> = ({
+  id,
+  children,
+  ...restProps
+}) => {
+  const { ref, title } = useParseHeading();
+
   return (
     <h1
       {...restProps}
+      ref={ref}
       id={id}
-      data-title={children?.toString()}
+      data-title={title}
       className="pt-24 -mt-24 mb-7 pb-3 border-b border-c-divider tracking-wide text-3xl font-semibold"
     >
       <div className="group relative">
@@ -45,13 +63,19 @@ export const H1: React.FC = ({ children, ...restProps }) => {
   );
 };
 
-export const H2: React.FC = ({ children, ...restProps }) => {
-  const id = resolveHeadingId(children);
+export const H2: React.FC<{ id?: string }> = ({
+  id,
+  children,
+  ...restProps
+}) => {
+  const { ref, title } = useParseHeading();
+
   return (
     <h2
       {...restProps}
+      ref={ref}
       id={id}
-      data-title={children?.toString()}
+      data-title={title}
       className="pt-24 -mt-16 mb-4 tracking-wide text-2xl font-semibold"
     >
       <div className="group relative">
@@ -62,13 +86,19 @@ export const H2: React.FC = ({ children, ...restProps }) => {
   );
 };
 
-export const H3: React.FC = ({ children, ...restProps }) => {
-  const id = resolveHeadingId(children);
+export const H3: React.FC<{ id?: string }> = ({
+  id,
+  children,
+  ...restProps
+}) => {
+  const { ref, title } = useParseHeading();
+
   return (
     <h3
       {...restProps}
+      ref={ref}
       id={id}
-      data-title={children?.toString()}
+      data-title={title}
       className="pt-24 -mt-16 mb-4 text-xl font-semibold"
     >
       <div className="group relative">
@@ -79,13 +109,19 @@ export const H3: React.FC = ({ children, ...restProps }) => {
   );
 };
 
-export const H4: React.FC = ({ children, ...restProps }) => {
-  const id = resolveHeadingId(children);
+export const H4: React.FC<{ id?: string }> = ({
+  id,
+  children,
+  ...restProps
+}) => {
+  const { ref, title } = useParseHeading();
+
   return (
     <h4
       {...restProps}
+      ref={ref}
       id={id}
-      data-title={children?.toString()}
+      data-title={title}
       className="pt-24 -mt-16 mb-4 text-lg font-semibold"
     >
       <div className="group relative">
@@ -96,13 +132,19 @@ export const H4: React.FC = ({ children, ...restProps }) => {
   );
 };
 
-export const H5: React.FC = ({ children, ...restProps }) => {
-  const id = resolveHeadingId(children);
+export const H5: React.FC<{ id?: string }> = ({
+  id,
+  children,
+  ...restProps
+}) => {
+  const { ref, title } = useParseHeading();
+
   return (
     <h5
       {...restProps}
+      ref={ref}
       id={id}
-      data-title={children?.toString()}
+      data-title={title}
       className="pt-24 -mt-16 mb-4 text-base font-semibold"
     >
       <div className="group relative">
@@ -113,13 +155,19 @@ export const H5: React.FC = ({ children, ...restProps }) => {
   );
 };
 
-export const H6: React.FC = ({ children, ...restProps }) => {
-  const id = resolveHeadingId(children);
+export const H6: React.FC<{ id?: string }> = ({
+  id,
+  children,
+  ...restProps
+}) => {
+  const { ref, title } = useParseHeading();
+
   return (
     <h6
       {...restProps}
+      ref={ref}
       id={id}
-      data-title={children?.toString()}
+      data-title={title}
       className="pt-24 -mt-16 mb-4 text-sm font-semibold"
     >
       <div className="group relative">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { useTheme } from '../../context';
+import { useScrollPromise } from '../../hooks/useScrollPromise';
 import { BaseLayout } from '../BaseLayout';
 import { Mdx } from '../Mdx';
 import { UpdateInfo } from '../UpdateInfo';
@@ -10,6 +11,7 @@ import './style.less';
 
 export const DocLayout: React.FC = ({ children }) => {
   const { useHashRouter, loadedRoutePath } = useTheme();
+  const scrollPromise = useScrollPromise();
 
   return (
     <BaseLayout>
@@ -17,7 +19,10 @@ export const DocLayout: React.FC = ({ children }) => {
         <CSSTransition
           key={loadedRoutePath}
           classNames="doc-slide"
-          timeout={300}
+          timeout={240}
+          // scroll pending until enter
+          onEnter={scrollPromise.resolve}
+          onExit={scrollPromise.pending}
         >
           <div className="max-w-screen-md mx-auto relative">
             <Mdx className="pb-8">{children}</Mdx>
