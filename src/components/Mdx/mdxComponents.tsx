@@ -214,6 +214,11 @@ export const Blockquote: React.FC = props => {
   );
 };
 
+export const Summary: React.FC = props => {
+  const { children } = props;
+  return <summary className="cursor-pointer">{children}</summary>;
+};
+
 export const A: React.FC<{ href?: string }> = props => {
   const { href, ...restProps } = props;
   return <Link {...restProps} to={href} />;
@@ -229,7 +234,7 @@ export const Hr: React.FC = props => {
 
 export const Table: React.FC = props => {
   return (
-    <div className="w-full my-4 overflow-y-auto text-[0.9rem] leading-snug">
+    <div className="w-full my-4 overflow-y-auto leading-snug">
       <table {...props} className="w-full min-w-max border-collapse" />
     </div>
   );
@@ -239,7 +244,10 @@ export const Tr: React.FC = props => {
   return <tr {...props} className="hover:bg-c-bg-light transition-colors" />;
 };
 
-// FIXME: 圆角不生效
+export const Thead: React.FC = props => {
+  return <thead {...props} className="border border-c-divider"></thead>;
+};
+
 export const Th: React.FC<{ align?: 'left' | 'right' }> = ({
   align,
   ...restProps
@@ -247,7 +255,7 @@ export const Th: React.FC<{ align?: 'left' | 'right' }> = ({
   return (
     <th
       {...restProps}
-      className={`h-10 px-3 py-2 border-c-divider border-t-1px border-b-1px bg-c-bg-light font-semibold first:(border-l-1px rounded-tl-md rounded-bl-md) last:(border-r-1px rounded-tr-md rounded-br-md) ${
+      className={`h-10 px-3 py-2 bg-c-bg-light font-semibold ${
         align === 'right' ? 'text-right' : 'text-left'
       }`}
     />
